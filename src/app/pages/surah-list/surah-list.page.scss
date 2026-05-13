@@ -1,0 +1,440 @@
+// ─── NÛRĀ – Surah List Page Styles ───────────────────────────────────────
+// Sama colour tokens dengan home page
+$navy-deep: #0d1220;
+$navy-mid: #131929;
+$navy-card: #163028; // teal-navy untuk surah card (ikut screenshot)
+$navy-border: #1f3d35;
+$teal-card: #164030; // card background teal gelap
+$teal-border: #1e5040;
+$gold-light: #f0d060;
+$gold-main: #d4af37;
+$gold-dark: #a07820;
+$gold-dim: rgba(212, 175, 55, 0.12);
+$white-soft: rgba(255, 255, 255, 0.87);
+$white-muted: rgba(255, 255, 255, 0.45);
+
+// ─── Content Shell ──────────────────────────────────────────────────────────
+.nura-content {
+  --background: #{$navy-deep};
+  --color: #{$white-soft};
+  position: relative;
+  overflow: hidden;
+}
+
+// ─── Background (sama dengan home) ──────────────────────────────────────────
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, #0f2820 0%, transparent 65%),
+    radial-gradient(
+      ellipse 40% 30% at 50% 50%,
+      rgba(212, 175, 55, 0.03) 0%,
+      transparent 60%
+    ),
+    #{$navy-deep};
+  z-index: 0;
+}
+
+.stars-layer {
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      1px 1px at 15% 8%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      1px 1px at 72% 5%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      1px 1px at 88% 18%,
+      rgba(255, 255, 255, 0.25) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      1px 1px at 30% 3%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      1px 1px at 92% 40%,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 100%
+    );
+  z-index: 0;
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// ─── All content above bg ────────────────────────────────────────────────────
+.nura-header,
+.search-bar-wrap,
+.tab-bar,
+.gold-divider,
+.surah-list {
+  position: relative;
+  z-index: 1;
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+.nura-header {
+  display: flex;
+  align-items: center;
+  padding: 52px 20px 0;
+  gap: 12px;
+
+  .page-title {
+    flex: 1;
+    margin: 0;
+    font-family: "Cinzel", serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: $white-soft;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  flex-shrink: 0;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+
+  ion-icon {
+    font-size: 20px;
+    color: $gold-main;
+  }
+
+  &:active {
+    background: $gold-dim;
+    border-color: rgba(212, 175, 55, 0.4);
+  }
+}
+
+// ─── Search Bar ──────────────────────────────────────────────────────────────
+.search-bar-wrap {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease,
+    padding 0.3s ease;
+  padding: 0 20px;
+
+  &.visible {
+    max-height: 80px;
+    opacity: 1;
+    padding: 12px 20px 0;
+  }
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 12px;
+  padding: 10px 14px;
+  backdrop-filter: blur(10px);
+
+  .search-icon {
+    font-size: 18px;
+    color: $gold-main;
+    flex-shrink: 0;
+  }
+
+  .search-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: "Lato", sans-serif;
+    font-size: 14px;
+    color: $white-soft;
+    caret-color: $gold-main;
+
+    &::placeholder {
+      color: $white-muted;
+    }
+  }
+
+  .clear-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    ion-icon {
+      font-size: 18px;
+      color: $white-muted;
+    }
+  }
+}
+
+// ─── Tab Bar ─────────────────────────────────────────────────────────────────
+.tab-bar {
+  display: flex;
+  padding: 20px 20px 0;
+  gap: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px 0;
+  font-family: "Cinzel", serif;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  color: $white-muted;
+  cursor: pointer;
+  transition: color 0.2s;
+  position: relative;
+
+  &.active {
+    color: $white-soft;
+    font-weight: 600;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        $gold-main,
+        transparent
+      );
+      border-radius: 2px;
+    }
+  }
+
+  &:not(.active):active {
+    color: rgba(255, 255, 255, 0.65);
+  }
+}
+
+// ─── Gold Divider ─────────────────────────────────────────────────────────────
+.gold-divider {
+  margin: 0 20px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(212, 175, 55, 0.25),
+    transparent
+  );
+}
+
+// ─── Surah List ───────────────────────────────────────────────────────────────
+.surah-list {
+  padding: 16px 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.surah-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #163530 0%, #112a25 100%);
+  border: 1px solid $teal-border;
+  border-radius: 16px;
+  cursor: pointer;
+  animation: fadeSlideUp 0.5s ease both;
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    transform 0.15s;
+  position: relative;
+  overflow: hidden;
+
+  // Gold shimmer on left edge
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 15%;
+    bottom: 15%;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      $gold-main,
+      transparent
+    );
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  &:active,
+  &:hover {
+    border-color: rgba(212, 175, 55, 0.45);
+    background: linear-gradient(135deg, #1e4540 0%, #163530 100%);
+    transform: translateX(3px);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .surah-number span {
+      color: $gold-light;
+      border-color: rgba(212, 175, 55, 0.5);
+    }
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Number badge
+.surah-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.15);
+  transition: border-color 0.25s;
+
+  span {
+    font-family: "Cinzel", serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: $gold-main;
+    transition: color 0.25s;
+    line-height: 1;
+  }
+}
+
+// Arabic calligraphy
+.surah-arabic {
+  font-family: "Scheherazade New", "Arabic Typesetting", serif;
+  font-size: 22px;
+  color: $gold-light;
+  text-align: right;
+  width: 62px;
+  flex-shrink: 0;
+  line-height: 1.3;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+// Latin name + meaning
+.surah-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.surah-name {
+  font-family: "Cinzel", serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: $white-soft;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.surah-meaning {
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  color: $white-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Ayat count (right side)
+.surah-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+.ayat-count {
+  font-family: "Cinzel", serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: $gold-main;
+}
+
+.ayat-label {
+  font-family: "Lato", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: $white-muted;
+}
+
+// ─── Empty State ──────────────────────────────────────────────────────────────
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  gap: 12px;
+  opacity: 0.4;
+
+  ion-icon {
+    font-size: 40px;
+    color: $gold-main;
+  }
+
+  p {
+    font-family: "Cinzel", serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: $white-muted;
+    margin: 0;
+  }
+}
