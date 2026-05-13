@@ -11,21 +11,24 @@ import {
   closeOutline,
 } from 'ionicons/icons';
 
-export interface Surah {
-  number: number;
-  name: string;
-  arabic: string;
-  meaning: string;
-  ayat: number;
-  type: 'Makkiyyah' | 'Madaniyyah';
-}
+// ✅ Import reusable component & shared interface
+import {
+  SurahCardComponent,
+  Surah,
+} from '../../shared/components/surah-card/surah-card.component';
 
 @Component({
   selector: 'app-surah-list',
   templateUrl: './surah-list.page.html',
   styleUrls: ['./surah-list.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, CommonModule, FormsModule],
+  imports: [
+    IonContent,
+    IonIcon,
+    CommonModule,
+    FormsModule,
+    SurahCardComponent, // ✅ daftarkan di sini
+  ],
 })
 export class SurahListPage implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
@@ -976,7 +979,6 @@ export class SurahListPage implements OnInit {
     if (!this.searchVisible) {
       this.clearSearch();
     } else {
-      // Focus input after animation
       setTimeout(() => this.searchInput?.nativeElement?.focus(), 350);
     }
   }
@@ -1004,6 +1006,7 @@ export class SurahListPage implements OnInit {
     this.activeTab = tab;
   }
 
+  // ✅ Terima emit dari SurahCardComponent
   openSurah(surah: Surah) {
     this.router.navigate(['/surah', surah.number]);
   }

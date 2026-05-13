@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true" class="nura-content">
-  <!-- Background layers (sama seperti home) -->
+  <!-- Background layers -->
   <div class="bg-layer"></div>
   <div class="stars-layer"></div>
 
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <!-- Search Bar (hidden by default) -->
+  <!-- Search Bar -->
   <div class="search-bar-wrap" [class.visible]="searchVisible">
     <div class="search-bar">
       <ion-icon name="search-outline" class="search-icon"></ion-icon>
@@ -61,38 +61,17 @@
       My Progress
     </button>
   </div>
-
-  <!-- Divider -->
   <div class="gold-divider"></div>
 
-  <!-- Surah List -->
+  <!-- ✅ Surah List — guna reusable SurahCardComponent -->
   <div class="surah-list">
-    <div
-      class="surah-card"
+    <app-surah-card
       *ngFor="let surah of filteredSurahs; let i = index"
+      [surah]="surah"
       [style.animation-delay]="(i * 0.04) + 's'"
-      (click)="openSurah(surah)"
-    >
-      <!-- Number -->
-      <div class="surah-number">
-        <span>{{ surah.number }}</span>
-      </div>
-
-      <!-- Arabic Name -->
-      <div class="surah-arabic">{{ surah.arabic }}</div>
-
-      <!-- Latin Info -->
-      <div class="surah-info">
-        <span class="surah-name">{{ surah.name }}</span>
-        <span class="surah-meaning">{{ surah.meaning }}</span>
-      </div>
-
-      <!-- Meta (ayat count) -->
-      <div class="surah-meta">
-        <span class="ayat-count">{{ surah.ayat }}</span>
-        <span class="ayat-label">ayat</span>
-      </div>
-    </div>
+      class="surah-card-anim"
+      (cardClick)="openSurah($event)"
+    ></app-surah-card>
 
     <!-- Empty state -->
     <div class="empty-state" *ngIf="filteredSurahs.length === 0">
