@@ -10,4 +10,8 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'surah-list',
+    loadComponent: () => import('./pages/surah-list/surah-list.page').then( m => m.SurahListPage)
+  },
 ];

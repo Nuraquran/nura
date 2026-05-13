@@ -34,4 +34,25 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+/* ── NÛRĀ Global Styles ─────────────────────────────────────────────────── */
+
+/* Google Fonts – import in index.html or here via @import */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&family=Scheherazade+New:wght@400;700&display=swap");
+
+/* Smooth scrolling */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+ion-app {
+  background: #0d1220;
+}
+
+/* Ripple / press feedback for menu cards */
+.menu-card {
+  -webkit-user-select: none;
+  user-select: none;
+}
