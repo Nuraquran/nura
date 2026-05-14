@@ -12,10 +12,21 @@ export const routes: Routes = [
   },
   {
     path: 'surah-list',
-    loadComponent: () => import('./pages/surah-list/surah-list.page').then( m => m.SurahListPage)
+    loadComponent: () =>
+      import('./pages/surah-list/surah-list.page').then((m) => m.SurahListPage),
   },
   {
     path: 'reader',
-    loadComponent: () => import('./pages/reader/reader.page').then( m => m.ReaderPage)
+    loadComponent: () =>
+      import('./pages/reader/reader.page').then((m) => m.ReaderPage),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/login/login.page').then((m) => m.LoginPage),
+  },
+  {
+    path: 'sign-in',
+    loadComponent: () => import('./pages/sign-in/sign-in.page').then( m => m.SignInPage)
   },
 ];
