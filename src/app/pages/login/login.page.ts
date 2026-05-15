@@ -10,6 +10,7 @@ import {
   chevronForwardOutline,
   sunnyOutline,
   lockClosedOutline,
+  logoApple,
 } from 'ionicons/icons';
 
 @Component({
@@ -30,6 +31,7 @@ export class LoginPage implements OnInit {
       chevronForwardOutline,
       sunnyOutline,
       lockClosedOutline,
+      logoApple,
     });
   }
 
