@@ -438,3 +438,139 @@ $white-muted: rgba(255, 255, 255, 0.45);
     margin: 0;
   }
 }
+
+// ── Stagger animation untuk host element SurahCardComponent ─────────────────
+.surah-card-anim {
+  animation: fadeSlideUp 0.5s ease both;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── Stagger animation ────────────────────────────────────────────────────────
+.surah-card-anim {
+  animation: fadeSlideUp 0.45s ease both;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── Loading skeleton ─────────────────────────────────────────────────────────
+.skeleton-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #163530 0%, #112a25 100%);
+  border: 1px solid #1e5040;
+  border-radius: 16px;
+  margin-bottom: 10px;
+}
+
+.sk {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  border-radius: 8px;
+  animation: shimmer-sk 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer-sk {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.sk-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.sk-arabic {
+  width: 62px;
+  height: 28px;
+  flex-shrink: 0;
+}
+.sk-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sk-name {
+  height: 14px;
+  width: 65%;
+}
+.sk-meaning {
+  height: 11px;
+  width: 45%;
+}
+.sk-ayat {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+// ── Error state ───────────────────────────────────────────────────────────────
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 32px;
+  gap: 14px;
+
+  .error-icon {
+    font-size: 44px;
+    color: rgba(212, 175, 55, 0.5);
+  }
+
+  .error-text {
+    font-family: "Lato", sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.45);
+    text-align: center;
+    margin: 0;
+    line-height: 1.6;
+  }
+}
+
+.retry-btn {
+  padding: 10px 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.1);
+  font-family: "Cinzel", serif;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: #d4af37;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:active {
+    background: rgba(212, 175, 55, 0.2);
+  }
+}

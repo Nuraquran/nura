@@ -9,26 +9,21 @@ import {
   bookmarkOutline,
   searchOutline,
   closeOutline,
+  refreshOutline,
 } from 'ionicons/icons';
 
-// ✅ Import reusable component & shared interface
 import {
   SurahCardComponent,
   Surah,
 } from '../../shared/components/surah-card/surah-card.component';
+import { QuranService } from 'src/app/core/services/quran';
 
 @Component({
   selector: 'app-surah-list',
   templateUrl: './surah-list.page.html',
   styleUrls: ['./surah-list.page.scss'],
   standalone: true,
-  imports: [
-    IonContent,
-    IonIcon,
-    CommonModule,
-    FormsModule,
-    SurahCardComponent, // ✅ daftarkan di sini
-  ],
+  imports: [IonContent, IonIcon, CommonModule, FormsModule, SurahCardComponent],
 })
 export class SurahListPage implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
@@ -36,944 +31,73 @@ export class SurahListPage implements OnInit {
   activeTab: 'read' | 'learn' | 'progress' = 'read';
   searchVisible = false;
   searchQuery = '';
+
+  surahs: Surah[] = [];
   filteredSurahs: Surah[] = [];
+  isLoading = true;
+  errorMsg = '';
 
-  readonly surahs: Surah[] = [
-    {
-      number: 1,
-      name: 'Al-Faatiha',
-      arabic: 'الفَاتِحَة',
-      meaning: 'The Opener',
-      ayat: 7,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 2,
-      name: 'Al-Baqara',
-      arabic: 'البَقَرَة',
-      meaning: 'The Cow',
-      ayat: 286,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 3,
-      name: 'Aal-i-Imraan',
-      arabic: 'آلِ عِمۡرَان',
-      meaning: 'Family of Imran',
-      ayat: 200,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 4,
-      name: 'An-Nisaa',
-      arabic: 'النِّسَاء',
-      meaning: 'The Women',
-      ayat: 176,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 5,
-      name: 'Al-Maaida',
-      arabic: 'المَائِدَة',
-      meaning: 'The Table Spread',
-      ayat: 120,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 6,
-      name: "Al-An'aam",
-      arabic: 'الأَنعَام',
-      meaning: 'The Cattle',
-      ayat: 165,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 7,
-      name: "Al-A'raaf",
-      arabic: 'الأَعۡرَاف',
-      meaning: 'The Heights',
-      ayat: 206,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 8,
-      name: 'Al-Anfaal',
-      arabic: 'الأَنفَال',
-      meaning: 'The Spoils of War',
-      ayat: 75,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 9,
-      name: 'At-Tawba',
-      arabic: 'التَّوۡبَة',
-      meaning: 'The Repentance',
-      ayat: 129,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 10,
-      name: 'Yunus',
-      arabic: 'يُونُس',
-      meaning: 'Jonah',
-      ayat: 109,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 11,
-      name: 'Hud',
-      arabic: 'هُود',
-      meaning: 'Hud',
-      ayat: 123,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 12,
-      name: 'Yusuf',
-      arabic: 'يُوسُف',
-      meaning: 'Joseph',
-      ayat: 111,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 13,
-      name: "Ar-Ra'd",
-      arabic: 'الرَّعۡد',
-      meaning: 'The Thunder',
-      ayat: 43,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 14,
-      name: 'Ibrahim',
-      arabic: 'إِبۡرَاهِيم',
-      meaning: 'Abraham',
-      ayat: 52,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 15,
-      name: 'Al-Hijr',
-      arabic: 'الحِجۡر',
-      meaning: 'The Rocky Tract',
-      ayat: 99,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 16,
-      name: 'An-Nahl',
-      arabic: 'النَّحۡل',
-      meaning: 'The Bee',
-      ayat: 128,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 17,
-      name: "Al-Israa'",
-      arabic: 'الإِسۡرَاء',
-      meaning: 'The Night Journey',
-      ayat: 111,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 18,
-      name: 'Al-Kahf',
-      arabic: 'الكَهۡف',
-      meaning: 'The Cave',
-      ayat: 110,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 19,
-      name: 'Maryam',
-      arabic: 'مَرۡيَم',
-      meaning: 'Mary',
-      ayat: 98,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 20,
-      name: 'Taa-Haa',
-      arabic: 'طه',
-      meaning: 'Ta-Ha',
-      ayat: 135,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 21,
-      name: 'Al-Anbiyaa',
-      arabic: 'الأَنبِيَاء',
-      meaning: 'The Prophets',
-      ayat: 112,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 22,
-      name: 'Al-Hajj',
-      arabic: 'الحَجّ',
-      meaning: 'The Pilgrimage',
-      ayat: 78,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 23,
-      name: 'Al-Muminoon',
-      arabic: 'المُؤۡمِنُون',
-      meaning: 'The Believers',
-      ayat: 118,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 24,
-      name: 'An-Noor',
-      arabic: 'النُّور',
-      meaning: 'The Light',
-      ayat: 64,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 25,
-      name: 'Al-Furqaan',
-      arabic: 'الفُرۡقَان',
-      meaning: 'The Criterion',
-      ayat: 77,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 26,
-      name: "Ash-Shu'araa",
-      arabic: 'الشُّعَرَاء',
-      meaning: 'The Poets',
-      ayat: 227,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 27,
-      name: 'An-Naml',
-      arabic: 'النَّمۡل',
-      meaning: 'The Ant',
-      ayat: 93,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 28,
-      name: 'Al-Qasas',
-      arabic: 'القَصَص',
-      meaning: 'The Stories',
-      ayat: 88,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 29,
-      name: 'Al-Ankaboot',
-      arabic: 'العَنكَبُوت',
-      meaning: 'The Spider',
-      ayat: 69,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 30,
-      name: 'Ar-Room',
-      arabic: 'الرُّوم',
-      meaning: 'The Romans',
-      ayat: 60,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 31,
-      name: 'Luqman',
-      arabic: 'لُقۡمَان',
-      meaning: 'Luqman',
-      ayat: 34,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 32,
-      name: 'As-Sajda',
-      arabic: 'السَّجۡدَة',
-      meaning: 'The Prostration',
-      ayat: 30,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 33,
-      name: 'Al-Ahzaab',
-      arabic: 'الأَحۡزَاب',
-      meaning: 'The Combined Forces',
-      ayat: 73,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 34,
-      name: 'Saba',
-      arabic: 'سَبَأ',
-      meaning: 'Sheba',
-      ayat: 54,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 35,
-      name: 'Faatir',
-      arabic: 'فَاطِر',
-      meaning: 'Originator',
-      ayat: 45,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 36,
-      name: 'Yaseen',
-      arabic: 'يٰسٓ',
-      meaning: 'Ya Sin',
-      ayat: 83,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 37,
-      name: 'As-Saaffaat',
-      arabic: 'الصَّافَّات',
-      meaning: 'Those Lined Up',
-      ayat: 182,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 38,
-      name: 'Saad',
-      arabic: 'صٓ',
-      meaning: 'Sad',
-      ayat: 88,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 39,
-      name: 'Az-Zumar',
-      arabic: 'الزُّمَر',
-      meaning: 'The Groups',
-      ayat: 75,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 40,
-      name: 'Ghafir',
-      arabic: 'غَافِر',
-      meaning: 'The Forgiver',
-      ayat: 85,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 41,
-      name: 'Fussilat',
-      arabic: 'فُصِّلَت',
-      meaning: 'Explained In Detail',
-      ayat: 54,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 42,
-      name: 'Ash-Shura',
-      arabic: 'الشُّورَىٰ',
-      meaning: 'The Consultation',
-      ayat: 53,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 43,
-      name: 'Az-Zukhruf',
-      arabic: 'الزُّخۡرُف',
-      meaning: 'The Ornaments of Gold',
-      ayat: 89,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 44,
-      name: 'Ad-Dukhaan',
-      arabic: 'الدُّخَان',
-      meaning: 'The Smoke',
-      ayat: 59,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 45,
-      name: 'Al-Jaathiya',
-      arabic: 'الجَاثِيَة',
-      meaning: 'The Crouching',
-      ayat: 37,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 46,
-      name: 'Al-Ahqaf',
-      arabic: 'الأَحقَاف',
-      meaning: 'The Wind-Curved Sandhills',
-      ayat: 35,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 47,
-      name: 'Muhammad',
-      arabic: 'مُحَمَّد',
-      meaning: 'Muhammad',
-      ayat: 38,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 48,
-      name: 'Al-Fath',
-      arabic: 'الفَتۡح',
-      meaning: 'The Victory',
-      ayat: 29,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 49,
-      name: 'Al-Hujuraat',
-      arabic: 'الحُجُرَات',
-      meaning: 'The Rooms',
-      ayat: 18,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 50,
-      name: 'Qaaf',
-      arabic: 'قٓ',
-      meaning: 'Qaf',
-      ayat: 45,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 51,
-      name: 'Adh-Dhaariyat',
-      arabic: 'الذَّارِيَات',
-      meaning: 'The Scatterers',
-      ayat: 60,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 52,
-      name: 'At-Tur',
-      arabic: 'الطُّور',
-      meaning: 'The Mount',
-      ayat: 49,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 53,
-      name: 'An-Najm',
-      arabic: 'النَّجۡم',
-      meaning: 'The Star',
-      ayat: 62,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 54,
-      name: 'Al-Qamar',
-      arabic: 'القَمَر',
-      meaning: 'The Moon',
-      ayat: 55,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 55,
-      name: 'Ar-Rahman',
-      arabic: 'الرَّحۡمَٰن',
-      meaning: 'The Beneficent',
-      ayat: 78,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 56,
-      name: "Al-Waqi'a",
-      arabic: 'الوَاقِعَة',
-      meaning: 'The Inevitable',
-      ayat: 96,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 57,
-      name: 'Al-Hadid',
-      arabic: 'الحَدِيد',
-      meaning: 'The Iron',
-      ayat: 29,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 58,
-      name: 'Al-Mujaadila',
-      arabic: 'المُجَادِلَة',
-      meaning: 'The Pleading Woman',
-      ayat: 22,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 59,
-      name: 'Al-Hashr',
-      arabic: 'الحَشۡر',
-      meaning: 'The Exile',
-      ayat: 24,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 60,
-      name: 'Al-Mumtahina',
-      arabic: 'المُمۡتَحَنَة',
-      meaning: 'She That Is To Be Examined',
-      ayat: 13,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 61,
-      name: 'As-Saf',
-      arabic: 'الصَّف',
-      meaning: 'The Ranks',
-      ayat: 14,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 62,
-      name: "Al-Jumu'a",
-      arabic: 'الجُمُعَة',
-      meaning: 'Friday',
-      ayat: 11,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 63,
-      name: 'Al-Munafiqoon',
-      arabic: 'المُنَافِقُون',
-      meaning: 'The Hypocrites',
-      ayat: 11,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 64,
-      name: 'At-Taghabun',
-      arabic: 'التَّغَابُن',
-      meaning: 'Mutual Disillusion',
-      ayat: 18,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 65,
-      name: 'At-Talaq',
-      arabic: 'الطَّلَاق',
-      meaning: 'Divorce',
-      ayat: 12,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 66,
-      name: 'At-Tahrim',
-      arabic: 'التَّحۡرِيم',
-      meaning: 'The Prohibition',
-      ayat: 12,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 67,
-      name: 'Al-Mulk',
-      arabic: 'المُلۡك',
-      meaning: 'The Sovereignty',
-      ayat: 30,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 68,
-      name: 'Al-Qalam',
-      arabic: 'القَلَم',
-      meaning: 'The Pen',
-      ayat: 52,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 69,
-      name: 'Al-Haaqqa',
-      arabic: 'الحَاقَّة',
-      meaning: 'The Reality',
-      ayat: 52,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 70,
-      name: "Al-Ma'aarij",
-      arabic: 'المَعَارِج',
-      meaning: 'The Ascending Stairways',
-      ayat: 44,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 71,
-      name: 'Nooh',
-      arabic: 'نُوح',
-      meaning: 'Noah',
-      ayat: 28,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 72,
-      name: 'Al-Jinn',
-      arabic: 'الجِنّ',
-      meaning: 'The Jinn',
-      ayat: 28,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 73,
-      name: 'Al-Muzzammil',
-      arabic: 'المُزَّمِّل',
-      meaning: 'The Enshrouded One',
-      ayat: 20,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 74,
-      name: 'Al-Muddaththir',
-      arabic: 'المُدَّثِّر',
-      meaning: 'The Cloaked One',
-      ayat: 56,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 75,
-      name: 'Al-Qiyaama',
-      arabic: 'القِيَامَة',
-      meaning: 'The Resurrection',
-      ayat: 40,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 76,
-      name: 'Al-Insaan',
-      arabic: 'الإِنسَان',
-      meaning: 'The Man',
-      ayat: 31,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 77,
-      name: 'Al-Mursalaat',
-      arabic: 'المُرۡسَلَات',
-      meaning: 'The Emissaries',
-      ayat: 50,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 78,
-      name: "An-Naba'",
-      arabic: 'النَّبَأ',
-      meaning: 'The Tidings',
-      ayat: 40,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 79,
-      name: "An-Naazi'aat",
-      arabic: 'النَّازِعَات',
-      meaning: 'Those Who Drag Forth',
-      ayat: 46,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 80,
-      name: "'Abasa",
-      arabic: 'عَبَسَ',
-      meaning: 'He Frowned',
-      ayat: 42,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 81,
-      name: 'At-Takwir',
-      arabic: 'التَّكۡوِير',
-      meaning: 'The Overthrowing',
-      ayat: 29,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 82,
-      name: 'Al-Infitaar',
-      arabic: 'الإِنفِطَار',
-      meaning: 'The Cleaving',
-      ayat: 19,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 83,
-      name: 'Al-Mutaffifin',
-      arabic: 'المُطَفِّفِين',
-      meaning: 'Defrauding',
-      ayat: 36,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 84,
-      name: 'Al-Inshiqaaq',
-      arabic: 'الإِنشِقَاق',
-      meaning: 'The Splitting Open',
-      ayat: 25,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 85,
-      name: 'Al-Burooj',
-      arabic: 'البُرُوج',
-      meaning: 'The Mansions of the Stars',
-      ayat: 22,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 86,
-      name: 'At-Taariq',
-      arabic: 'الطَّارِق',
-      meaning: 'The Morning Star',
-      ayat: 17,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 87,
-      name: "Al-A'laa",
-      arabic: 'الأَعۡلَى',
-      meaning: 'The Most High',
-      ayat: 19,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 88,
-      name: 'Al-Ghaashiya',
-      arabic: 'الغَاشِيَة',
-      meaning: 'The Overwhelming',
-      ayat: 26,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 89,
-      name: 'Al-Fajr',
-      arabic: 'الفَجۡر',
-      meaning: 'The Dawn',
-      ayat: 30,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 90,
-      name: 'Al-Balad',
-      arabic: 'البَلَد',
-      meaning: 'The City',
-      ayat: 20,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 91,
-      name: 'Ash-Shams',
-      arabic: 'الشَّمۡس',
-      meaning: 'The Sun',
-      ayat: 15,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 92,
-      name: 'Al-Layl',
-      arabic: 'اللَّيۡل',
-      meaning: 'The Night',
-      ayat: 21,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 93,
-      name: 'Ad-Dhuhaa',
-      arabic: 'الضُّحَى',
-      meaning: 'The Morning Hours',
-      ayat: 11,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 94,
-      name: 'Ash-Sharh',
-      arabic: 'الشَّرۡح',
-      meaning: 'The Consolation',
-      ayat: 8,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 95,
-      name: 'At-Tin',
-      arabic: 'التِّين',
-      meaning: 'The Fig',
-      ayat: 8,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 96,
-      name: "Al-'Alaq",
-      arabic: 'العَلَق',
-      meaning: 'The Clot',
-      ayat: 19,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 97,
-      name: 'Al-Qadr',
-      arabic: 'القَدۡر',
-      meaning: 'The Power',
-      ayat: 5,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 98,
-      name: 'Al-Bayyina',
-      arabic: 'البَيِّنَة',
-      meaning: 'The Clear Proof',
-      ayat: 8,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 99,
-      name: 'Az-Zalzala',
-      arabic: 'الزَّلۡزَلَة',
-      meaning: 'The Earthquake',
-      ayat: 8,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 100,
-      name: "Al-'Aadiyaat",
-      arabic: 'العَادِيَات',
-      meaning: 'The Chargers',
-      ayat: 11,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 101,
-      name: "Al-Qaari'a",
-      arabic: 'القَارِعَة',
-      meaning: 'The Calamity',
-      ayat: 11,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 102,
-      name: 'At-Takaathur',
-      arabic: 'التَّكَاثُر',
-      meaning: 'Rivalry in World Increase',
-      ayat: 8,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 103,
-      name: 'Al-Asr',
-      arabic: 'العَصۡر',
-      meaning: 'The Declining Day',
-      ayat: 3,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 104,
-      name: 'Al-Humaza',
-      arabic: 'الهُمَزَة',
-      meaning: 'The Traducer',
-      ayat: 9,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 105,
-      name: 'Al-Feel',
-      arabic: 'الفِيل',
-      meaning: 'The Elephant',
-      ayat: 5,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 106,
-      name: 'Quraysh',
-      arabic: 'قُرَيۡش',
-      meaning: 'Quraysh',
-      ayat: 4,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 107,
-      name: "Al-Maa'oon",
-      arabic: 'الماعُون',
-      meaning: 'The Small Kindnesses',
-      ayat: 7,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 108,
-      name: 'Al-Kawthar',
-      arabic: 'الكَوۡثَر',
-      meaning: 'The Abundance',
-      ayat: 3,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 109,
-      name: 'Al-Kaafiroon',
-      arabic: 'الكَافِرُون',
-      meaning: 'The Disbelievers',
-      ayat: 6,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 110,
-      name: 'An-Nasr',
-      arabic: 'النَّصۡر',
-      meaning: 'The Divine Support',
-      ayat: 3,
-      type: 'Madaniyyah',
-    },
-    {
-      number: 111,
-      name: 'Al-Masad',
-      arabic: 'المَسَد',
-      meaning: 'The Palm Fibre',
-      ayat: 5,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 112,
-      name: 'Al-Ikhlaas',
-      arabic: 'الإِخۡلَاص',
-      meaning: 'The Sincerity',
-      ayat: 4,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 113,
-      name: 'Al-Falaq',
-      arabic: 'الفَلَق',
-      meaning: 'The Daybreak',
-      ayat: 5,
-      type: 'Makkiyyah',
-    },
-    {
-      number: 114,
-      name: 'An-Naas',
-      arabic: 'النَّاس',
-      meaning: 'Mankind',
-      ayat: 6,
-      type: 'Makkiyyah',
-    },
-  ];
-
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private quranService: QuranService,
+  ) {
     addIcons({
       arrowBackOutline,
       bookmarkOutline,
       searchOutline,
       closeOutline,
+      refreshOutline,
     });
   }
 
   ngOnInit() {
-    this.filteredSurahs = [...this.surahs];
+    this.loadSurahs();
   }
 
+  // ── API ──────────────────────────────────────────────────────────────────────
+  loadSurahs() {
+    this.isLoading = true;
+    this.errorMsg = '';
+
+    this.quranService.getSurahs().subscribe({
+      next: (res: any) => {
+        const raw: any[] = res?.data ?? [];
+        this.surahs = raw.map((s) => this.mapToSurah(s));
+        this.filteredSurahs = [...this.surahs];
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        console.error('Failed to load surahs', err);
+        this.errorMsg = 'Gagal memuatkan senarai surah. Sila cuba semula.';
+        this.isLoading = false;
+      },
+    });
+  }
+
+  // Map API shape → Surah interface
+  private mapToSurah(s: any): Surah {
+    return {
+      number: s.number,
+      name: s.englishName,
+      arabic: s.name,
+      meaning: s.englishNameTranslation,
+      ayat: s.numberOfAyahs,
+      type: s.revelationType === 'Meccan' ? 'Makkiyyah' : 'Madaniyyah',
+    };
+  }
+
+  // ── Navigation ───────────────────────────────────────────────────────────────
   goBack() {
     this.router.navigateByUrl('/home');
   }
-
   goToBookmark() {
     this.router.navigateByUrl('/last-read');
   }
+  openSurah(surah: Surah) {
+    this.router.navigate(['/surah', surah.number]);
+  }
 
+  // ── Search ───────────────────────────────────────────────────────────────────
   toggleSearch() {
     this.searchVisible = !this.searchVisible;
     if (!this.searchVisible) {
@@ -1002,12 +126,8 @@ export class SurahListPage implements OnInit {
     this.filteredSurahs = [...this.surahs];
   }
 
+  // ── Tabs ─────────────────────────────────────────────────────────────────────
   setTab(tab: 'read' | 'learn' | 'progress') {
     this.activeTab = tab;
-  }
-
-  // ✅ Terima emit dari SurahCardComponent
-  openSurah(surah: Surah) {
-    this.router.navigate(['/surah', surah.number]);
   }
 }

@@ -1,5 +1,4 @@
 <ion-content [fullscreen]="true" class="nura-content">
-  <!-- Background layers -->
   <div class="bg-layer"></div>
   <div class="stars-layer"></div>
 
@@ -26,7 +25,7 @@
       <input
         #searchInput
         type="text"
-        placeholder="Cari surah..."
+        placeholder="Carian surah"
         [(ngModel)]="searchQuery"
         (input)="onSearch()"
         class="search-input"
@@ -63,20 +62,40 @@
   </div>
   <div class="gold-divider"></div>
 
-  <!-- ✅ Surah List — guna reusable SurahCardComponent -->
-  <div class="surah-list">
+  <!-- ── Loading skeleton ─────────────────────────────────────────────────── -->
+  <div class="surah-list" *ngIf="isLoading">
+    <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6,7,8]">
+      <div class="sk sk-num"></div>
+      <div class="sk sk-arabic"></div>
+      <div class="sk-info">
+        <div class="sk sk-name"></div>
+        <div class="sk sk-meaning"></div>
+      </div>
+      <div class="sk sk-ayat"></div>
+    </div>
+  </div>
+
+  <!-- ── Error state ──────────────────────────────────────────────────────── -->
+  <div class="error-state" *ngIf="!isLoading && errorMsg">
+    <ion-icon name="refresh-outline" class="error-icon"></ion-icon>
+    <p class="error-text">{{ errorMsg }}</p>
+    <button class="retry-btn" (click)="loadSurahs()">Cuba Semula</button>
+  </div>
+
+  <!-- ── Surah list ───────────────────────────────────────────────────────── -->
+  <div class="surah-list" *ngIf="!isLoading && !errorMsg">
     <app-surah-card
       *ngFor="let surah of filteredSurahs; let i = index"
       [surah]="surah"
-      [style.animation-delay]="(i * 0.04) + 's'"
+      [style.animation-delay]="(i * 0.03) + 's'"
       class="surah-card-anim"
       (cardClick)="openSurah($event)"
     ></app-surah-card>
 
-    <!-- Empty state -->
-    <div class="empty-state" *ngIf="filteredSurahs.length === 0">
+    <!-- Empty search result -->
+    <div class="empty-state" *ngIf="filteredSurahs.length === 0 && searchQuery">
       <ion-icon name="search-outline"></ion-icon>
-      <p>Tiada surah dijumpai</p>
+      <p>Tiada surah dijumpai untuk "<strong>{{ searchQuery }}</strong>"</p>
     </div>
   </div>
 
