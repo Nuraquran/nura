@@ -3,8 +3,6 @@ $navy-deep: #0d1220;
 $navy-mid: #131929;
 $navy-card: #163028;
 $navy-border: #253048;
-$teal-card: #164030;
-$teal-border: #1e5040;
 $gold-light: #f0d060;
 $gold-main: #d4af37;
 $gold-dark: #a07820;
@@ -221,7 +219,7 @@ $white-muted: rgba(255, 255, 255, 0.45);
   gap: 14px;
   padding: 14px 16px;
   background: linear-gradient(135deg, #163530 0%, #112a25 100%);
-  border: 1px solid $teal-border;
+  border: 1px solid $navy-border;
   border-radius: 16px;
   cursor: pointer;
   animation: fadeSlideUp 0.5s ease both;
@@ -422,8 +420,12 @@ $white-muted: rgba(255, 255, 255, 0.45);
   align-items: center;
   gap: 14px;
   padding: 14px 16px;
-  background: linear-gradient(135deg, #163530 0%, #112a25 100%);
-  border: 1px solid #1e5040;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  border: 1px solid $navy-border;
   border-radius: 16px;
   margin-bottom: 10px;
 }
