@@ -47,7 +47,7 @@ export class LoginPage implements OnInit {
   }
 
   signIn() {
-    this.router.navigateByUrl('/signin');
+    this.router.navigateByUrl('/sign-in');
   }
 
   loginGoogle() {

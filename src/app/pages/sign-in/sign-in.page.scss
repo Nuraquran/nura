@@ -1,0 +1,496 @@
+// ─── NÛRĀ – Sign In Page ──────────────────────────────────────────────────
+$navy-deep: #080c16;
+$navy-card: #0f1628;
+$navy-border: #1e2d48;
+$gold-light: #f0d060;
+$gold-main: #d4af37;
+$gold-dark: #a07820;
+$gold-dim: rgba(212, 175, 55, 0.12);
+$white-soft: rgba(255, 255, 255, 0.87);
+$white-mid: rgba(255, 255, 255, 0.55);
+$white-muted: rgba(255, 255, 255, 0.38);
+$error: #e05c5c;
+
+.nura-content {
+  --background: #{$navy-deep};
+  --color: #{$white-soft};
+  --overflow: hidden;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: $navy-deep;
+}
+
+// Subtle top radial glow
+.bg-glow {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  height: 50vh;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(30, 50, 90, 0.8) 0%,
+    rgba(15, 25, 50, 0.4) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+// All sections above bg
+.nura-header,
+.logo-section,
+.title-section,
+.form-section,
+.footer-section {
+  position: relative;
+  z-index: 1;
+}
+
+// ── Header ───────────────────────────────────────────────────────────────────
+.nura-header {
+  padding: 52px 20px 0;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+  ion-icon {
+    font-size: 20px;
+    color: $gold-main;
+  }
+  &:active {
+    background: $gold-dim;
+  }
+}
+
+// ── Logo ─────────────────────────────────────────────────────────────────────
+.logo-section {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 50%;
+  mask-image: radial-gradient(circle, black 55%, transparent 78%);
+  -webkit-mask-image: radial-gradient(circle, black 55%, transparent 78%);
+  filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.2));
+}
+
+// ── Title ────────────────────────────────────────────────────────────────────
+.title-section {
+  text-align: center;
+  padding: 10px 32px 0;
+  flex-shrink: 0;
+}
+
+.page-title {
+  font-family: "Cinzel", serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: $white-soft;
+  margin: 0 0 4px;
+  letter-spacing: 1px;
+}
+
+.page-sub {
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  color: $white-muted;
+  margin: 0 0 12px;
+}
+
+.title-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  .divider-line {
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.4));
+    &:last-child {
+      background: linear-gradient(
+        to left,
+        transparent,
+        rgba(212, 175, 55, 0.4)
+      );
+    }
+  }
+  .divider-diamond {
+    font-size: 6px;
+    color: $gold-main;
+    opacity: 0.7;
+  }
+}
+
+// ── Form ─────────────────────────────────────────────────────────────────────
+.form-section {
+  flex: 1;
+  padding: 16px 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid $navy-border;
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    box-shadow 0.25s;
+  flex-shrink: 0;
+
+  &.focused {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(212, 175, 55, 0.05);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.07);
+  }
+  &.has-value:not(.focused) {
+    border-color: rgba(212, 175, 55, 0.22);
+  }
+}
+
+.input-icon {
+  flex-shrink: 0;
+  ion-icon {
+    font-size: 19px;
+    color: $gold-main;
+    opacity: 0.75;
+  }
+}
+
+.input-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.input-label {
+  font-family: "Lato", sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: $gold-main;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.nura-input {
+  background: none;
+  border: none;
+  outline: none;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  color: $white-soft;
+  caret-color: $gold-main;
+  width: 100%;
+  padding: 0;
+
+  &::placeholder {
+    color: $white-muted;
+    font-size: 13px;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:focus {
+    -webkit-text-fill-color: #{$white-soft};
+    -webkit-box-shadow: 0 0 0px 1000px #0f1628 inset;
+    transition: background-color 9999s;
+  }
+}
+
+.eye-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  ion-icon {
+    font-size: 19px;
+    color: $white-muted;
+    transition: color 0.2s;
+  }
+  &:active ion-icon {
+    color: $gold-main;
+  }
+}
+
+.forgot-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -4px;
+  flex-shrink: 0;
+}
+
+.forgot-btn {
+  background: none;
+  border: none;
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  color: $gold-main;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+  &:active {
+    opacity: 1;
+  }
+}
+
+.error-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(224, 92, 92, 0.1);
+  border: 1px solid rgba(224, 92, 92, 0.3);
+  border-radius: 12px;
+  flex-shrink: 0;
+  animation: fadeUp 0.3s ease both;
+  ion-icon {
+    font-size: 16px;
+    color: $error;
+    flex-shrink: 0;
+  }
+  span {
+    font-family: "Lato", sans-serif;
+    font-size: 13px;
+    color: $error;
+  }
+}
+
+// Primary gold button
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #c8992a 0%, $gold-main 45%, #b8941e 100%);
+  box-shadow: 0 4px 18px rgba(180, 140, 30, 0.3);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    opacity 0.2s;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent
+    );
+    transform: skewX(-20deg);
+    animation: shimmer 3.5s ease-in-out infinite;
+  }
+
+  span {
+    font-family: "Cinzel", serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: $navy-deep;
+  }
+
+  .btn-arrow {
+    font-size: 17px;
+    color: $navy-deep;
+    opacity: 0.65;
+  }
+  &:active {
+    transform: scale(0.985);
+  }
+  &.loading {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -60%;
+  }
+  55% {
+    left: 120%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+
+// Loading dots
+.spinner {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.spin-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $navy-deep;
+  animation: bounce 0.8s ease-in-out infinite;
+  &:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+}
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// OR divider
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  .or-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .or-text {
+    font-family: "Lato", sans-serif;
+    font-size: 11px;
+    color: $white-muted;
+    white-space: nowrap;
+  }
+}
+
+// Social
+.social-row {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.btn-social {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+
+  .social-icon {
+    font-size: 20px;
+    color: $white-soft;
+  }
+
+  span {
+    font-family: "Lato", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: $white-soft;
+  }
+  &:active {
+    background: rgba(255, 255, 255, 0.09);
+    transform: scale(0.97);
+  }
+}
+
+// ── Footer ───────────────────────────────────────────────────────────────────
+.footer-section {
+  text-align: center;
+  padding: 12px 20px 28px;
+  flex-shrink: 0;
+}
+
+.footer-text {
+  font-family: "Lato", sans-serif;
+  font-size: 13px;
+  color: $white-muted;
+  margin: 0;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  font-family: "Cinzel", serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: $gold-main;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: opacity 0.2s;
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
