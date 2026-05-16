@@ -1,10 +1,9 @@
 // ─── NÛRĀ – Surah List Page Styles ───────────────────────────────────────
-// Sama colour tokens dengan home page
 $navy-deep: #0d1220;
 $navy-mid: #131929;
-$navy-card: #163028; // teal-navy untuk surah card (ikut screenshot)
-$navy-border: #1f3d35;
-$teal-card: #164030; // card background teal gelap
+$navy-card: #163028;
+$navy-border: #253048;
+$teal-card: #164030;
 $teal-border: #1e5040;
 $gold-light: #f0d060;
 $gold-main: #d4af37;
@@ -13,7 +12,6 @@ $gold-dim: rgba(212, 175, 55, 0.12);
 $white-soft: rgba(255, 255, 255, 0.87);
 $white-muted: rgba(255, 255, 255, 0.45);
 
-// ─── Content Shell ──────────────────────────────────────────────────────────
 .nura-content {
   --background: #{$navy-deep};
   --color: #{$white-soft};
@@ -26,59 +24,16 @@ $white-muted: rgba(255, 255, 255, 0.45);
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, #0f2820 0%, transparent 65%),
+    radial-gradient(ellipse 70% 50% at 50% 0%, #1e2e50 0%, transparent 70%),
     radial-gradient(
-      ellipse 40% 30% at 50% 50%,
-      rgba(212, 175, 55, 0.03) 0%,
+      ellipse 40% 30% at 50% 40%,
+      rgba(212, 175, 55, 0.04) 0%,
       transparent 60%
     ),
     #{$navy-deep};
   z-index: 0;
 }
 
-.stars-layer {
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(
-      1px 1px at 15% 8%,
-      rgba(255, 255, 255, 0.4) 0%,
-      transparent 100%
-    ),
-    radial-gradient(
-      1px 1px at 72% 5%,
-      rgba(255, 255, 255, 0.3) 0%,
-      transparent 100%
-    ),
-    radial-gradient(
-      1px 1px at 88% 18%,
-      rgba(255, 255, 255, 0.25) 0%,
-      transparent 100%
-    ),
-    radial-gradient(
-      1px 1px at 30% 3%,
-      rgba(255, 255, 255, 0.3) 0%,
-      transparent 100%
-    ),
-    radial-gradient(
-      1px 1px at 92% 40%,
-      rgba(255, 255, 255, 0.15) 0%,
-      transparent 100%
-    );
-  z-index: 0;
-  animation: twinkle 6s ease-in-out infinite alternate;
-}
-
-@keyframes twinkle {
-  from {
-    opacity: 0.5;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-// ─── All content above bg ────────────────────────────────────────────────────
 .nura-header,
 .search-bar-wrap,
 .tab-bar,
@@ -88,7 +43,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   z-index: 1;
 }
 
-// ─── Header ──────────────────────────────────────────────────────────────────
 .nura-header {
   display: flex;
   align-items: center;
@@ -115,7 +69,7 @@ $white-muted: rgba(255, 255, 255, 0.45);
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid $navy-border;
   background: rgba(255, 255, 255, 0.04);
   display: flex;
   align-items: center;
@@ -138,7 +92,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   }
 }
 
-// ─── Search Bar ──────────────────────────────────────────────────────────────
 .search-bar-wrap {
   overflow: hidden;
   max-height: 0;
@@ -199,7 +152,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   }
 }
 
-// ─── Tab Bar ─────────────────────────────────────────────────────────────────
 .tab-bar {
   display: flex;
   padding: 20px 20px 0;
@@ -245,7 +197,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   }
 }
 
-// ─── Gold Divider ─────────────────────────────────────────────────────────────
 .gold-divider {
   margin: 0 20px;
   height: 1px;
@@ -257,7 +208,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   );
 }
 
-// ─── Surah List ───────────────────────────────────────────────────────────────
 .surah-list {
   padding: 16px 16px 0;
   display: flex;
@@ -282,7 +232,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   position: relative;
   overflow: hidden;
 
-  // Gold shimmer on left edge
   &::before {
     content: "";
     position: absolute;
@@ -329,7 +278,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   }
 }
 
-// Number badge
 .surah-number {
   width: 36px;
   height: 36px;
@@ -364,7 +312,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
 }
 
-// Latin name + meaning
 .surah-info {
   flex: 1;
   display: flex;
@@ -393,7 +340,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   text-overflow: ellipsis;
 }
 
-// Ayat count (right side)
 .surah-meta {
   display: flex;
   flex-direction: column;
@@ -416,7 +362,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   color: $white-muted;
 }
 
-// ─── Empty State ──────────────────────────────────────────────────────────────
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -536,7 +481,6 @@ $white-muted: rgba(255, 255, 255, 0.45);
   flex-shrink: 0;
 }
 
-// ── Error state ───────────────────────────────────────────────────────────────
 .error-state {
   display: flex;
   flex-direction: column;

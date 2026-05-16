@@ -66,7 +66,7 @@ export class SurahListPage implements OnInit {
         this.filteredSurahs = [...this.surahs];
         this.isLoading = false;
       },
-      error: (err: any) => {
+      error: (err) => {
         console.error('Failed to load surahs', err);
         this.errorMsg = 'Gagal memuatkan senarai surah. Sila cuba semula.';
         this.isLoading = false;
@@ -76,10 +76,13 @@ export class SurahListPage implements OnInit {
 
   // Map API shape → Surah interface
   private mapToSurah(s: any): Surah {
+    // API returns nama dengan tashkeel — buang word pertama (سُورَةُ)
+    const arabicName = (s.name as string).replace(/^\S+\s+/, '').trim();
+
     return {
       number: s.number,
       name: s.englishName,
-      arabic: s.name,
+      arabic: arabicName,
       meaning: s.englishNameTranslation,
       ayat: s.numberOfAyahs,
       type: s.revelationType === 'Meccan' ? 'Makkiyyah' : 'Madaniyyah',
