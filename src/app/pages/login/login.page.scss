@@ -24,13 +24,6 @@ $btn-gold-to: #7a5c10;
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: $navy-deep;
-}
-
-.bg-wave {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
   background:
     radial-gradient(ellipse 70% 50% at 50% 0%, #1e2e50 0%, transparent 70%),
     radial-gradient(
@@ -38,12 +31,14 @@ $btn-gold-to: #7a5c10;
       rgba(212, 175, 55, 0.04) 0%,
       transparent 60%
     ),
-    #{$navy-deep};
+    $navy-deep;
 
+  // Bintang-bintang
   &::before {
     content: "";
     position: absolute;
     inset: 0;
+    z-index: 0;
     background-image:
       radial-gradient(
         1px 1px at 15% 12%,
@@ -81,24 +76,7 @@ $btn-gold-to: #7a5c10;
         transparent 100%
       );
     animation: twinkle 6s ease-in-out infinite alternate;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 35%;
-    left: -20%;
-    width: 150%;
-    height: 30%;
-    background: linear-gradient(
-      130deg,
-      transparent 0%,
-      rgba(30, 24, 12, 0.4) 40%,
-      rgba(25, 20, 8, 0.45) 60%,
-      transparent 100%
-    );
-    border-radius: 50%;
-    transform: rotate(-10deg);
+    pointer-events: none;
   }
 }
 
@@ -154,6 +132,10 @@ $btn-gold-to: #7a5c10;
   }
 }
 
+.flex-spacer-top {
+  flex: 1;
+}
+
 .logo-section {
   display: flex;
   justify-content: center;
@@ -207,10 +189,6 @@ $btn-gold-to: #7a5c10;
     color: $gold-main;
     opacity: 0.8;
   }
-}
-
-.flex-spacer-top {
-  flex: 1;
 }
 
 .flex-spacer {
