@@ -7,23 +7,29 @@ $white-soft: rgba(255, 255, 255, 0.92);
 $white-mid: rgba(255, 255, 255, 0.58);
 $white-muted: rgba(255, 255, 255, 0.38);
 
-// Button colour dari UI — coklat emas gelap
+// Button colour — solid supaya consistent semua browser
 $btn-gold-from: #8b6914;
 $btn-gold-mid: #a07820;
 $btn-gold-to: #7a5c10;
 
 .nura-content {
   --background: #{$navy-deep};
+  // Disable scroll dari Ionic level
   --overflow: hidden;
+  overflow: hidden;
+  pointer-events: auto;
 }
 
 .page-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100dvh; // pakai dvh supaya fit exact viewport mobile
+  max-height: 100dvh;
   position: relative;
   overflow: hidden;
   background: $navy-deep;
+  overscroll-behavior: none; // block pull-to-refresh & bounce scroll
+  touch-action: pan-x; // block vertical scroll gesture
 }
 
 .bg-mosque {
@@ -119,7 +125,7 @@ $btn-gold-to: #7a5c10;
 }
 
 .nura-logo {
-  width: 190px;
+  width: 150px;
   mix-blend-mode: lighten;
   filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.25));
 }
@@ -180,7 +186,8 @@ $btn-gold-to: #7a5c10;
   gap: 12px;
 }
 
-// ─── CONTINUE button — coklat emas gelap macam UI ────────────────────────────
+// ─── CONTINUE button ─────────────────────────────────────────────────────────
+// Guna -webkit- prefix + will-change supaya gradient render sama semua browser
 .btn-primary {
   display: flex;
   align-items: center;
@@ -190,6 +197,12 @@ $btn-gold-to: #7a5c10;
   padding: 16px 20px;
   border-radius: 14px;
   border: none;
+  background: -webkit-linear-gradient(
+    135deg,
+    $btn-gold-from 0%,
+    $btn-gold-mid 50%,
+    $btn-gold-to 100%
+  );
   background: linear-gradient(
     135deg,
     $btn-gold-from 0%,
@@ -201,6 +214,8 @@ $btn-gold-to: #7a5c10;
   position: relative;
   overflow: hidden;
   transition: transform 0.15s;
+  -webkit-transform: translateZ(0); // force GPU render — warna consistent
+  transform: translateZ(0);
 
   &::before {
     content: "";
