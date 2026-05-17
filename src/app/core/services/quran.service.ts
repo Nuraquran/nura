@@ -16,4 +16,14 @@ export class QuranService {
   getSurah(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/surah/${id}`);
   }
+
+  // Surah dengan terjemahan Melayu (ms.basmeih)
+  getSurahWithTranslation(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/surah/${id}/ms.basmeih`);
+  }
+
+  // Surah dengan terjemahan English (en.asad)
+  getSurahEnglish(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/surah/${id}/en.asad`);
+  }
 }

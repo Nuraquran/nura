@@ -16,7 +16,7 @@ import {
   SurahCardComponent,
   Surah,
 } from '../../shared/components/surah-card/surah-card.component';
-import { QuranService } from 'src/app/core/services/quran';
+import { QuranService } from 'src/app/core/services/quran.service';
 
 @Component({
   selector: 'app-surah-list',

@@ -16,7 +16,7 @@ export const routes: Routes = [
       import('./pages/surah-list/surah-list.page').then((m) => m.SurahListPage),
   },
   {
-    path: 'reader',
+    path: 'surah/:id',
     loadComponent: () =>
       import('./pages/reader/reader.page').then((m) => m.ReaderPage),
   },
@@ -27,6 +27,7 @@ export const routes: Routes = [
   },
   {
     path: 'sign-in',
-    loadComponent: () => import('./pages/sign-in/sign-in.page').then( m => m.SignInPage)
+    loadComponent: () =>
+      import('./pages/sign-in/sign-in.page').then((m) => m.SignInPage),
   },
 ];
