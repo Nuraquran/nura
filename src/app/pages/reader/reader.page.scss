@@ -56,16 +56,6 @@ $white-faint: rgba(255, 255, 255, 0.12);
       transparent 100%
     );
   z-index: 0;
-  animation: twinkle 6s ease-in-out infinite alternate;
-}
-
-@keyframes twinkle {
-  from {
-    opacity: 0.5;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .nura-header,
