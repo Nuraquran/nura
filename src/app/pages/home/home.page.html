@@ -1,0 +1,457 @@
+<ion-content [fullscreen]="true" [scrollY]="true" class="home-content">
+  <div class="home-wrapper">
+    <!-- ── Header ──────────────────────────────────────────────────────────── -->
+    <div class="top-bar">
+      <button class="icon-btn" (click)="openMenu()">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <div class="logo-center">
+        <img
+          class="nura-logo"
+          src="/assets/images/nura-logo-transparent.png"
+          alt="Nura Qur'an"
+        />
+        <p class="logo-tagline">Your Journey with the Qur'an</p>
+      </div>
+
+      <button class="icon-btn notif-btn" (click)="openNotifications()">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <span class="notif-dot" *ngIf="hasNotification"></span>
+      </button>
+    </div>
+
+    <!-- ── Hero placeholder ─────────────────────────────────────────────────── -->
+    <div class="hero-section">
+      <div class="hero-placeholder">
+        <div class="hero-stars"></div>
+        <!-- Mosque silhouette placeholder -->
+        <div class="mosque-placeholder">
+          <svg
+            viewBox="0 0 375 260"
+            xmlns="http://www.w3.org/2000/svg"
+            class="mosque-svg"
+          >
+            <!-- Sky background glow -->
+            <radialGradient id="skyGlow" cx="50%" cy="60%" r="50%">
+              <stop offset="0%" stop-color="rgba(212,175,55,0.12)" />
+              <stop offset="100%" stop-color="transparent" />
+            </radialGradient>
+            <rect x="0" y="0" width="375" height="260" fill="url(#skyGlow)" />
+
+            <!-- Large background arch frame -->
+            <path
+              d="M80,260 L80,140 Q80,60 187,60 Q294,60 294,140 L294,260 Z"
+              fill="none"
+              stroke="rgba(212,175,55,0.25)"
+              stroke-width="1.5"
+            />
+            <!-- Inner arch -->
+            <path
+              d="M95,260 L95,148 Q95,80 187,80 Q279,80 279,148 L279,260 Z"
+              fill="rgba(8,18,32,0.3)"
+              stroke="rgba(212,175,55,0.15)"
+              stroke-width="1"
+            />
+
+            <!-- Far background trees/silhouette -->
+            <rect
+              x="0"
+              y="195"
+              width="375"
+              height="65"
+              fill="rgba(5,14,26,0.6)"
+            />
+
+            <!-- Main big dome -->
+            <ellipse
+              cx="187"
+              cy="155"
+              rx="52"
+              ry="46"
+              fill="rgba(8,22,18,0.95)"
+            />
+            <rect
+              x="135"
+              y="153"
+              width="104"
+              height="107"
+              fill="rgba(8,22,18,0.95)"
+            />
+            <!-- Main dome finial -->
+            <line
+              x1="187"
+              y1="109"
+              x2="187"
+              y2="90"
+              stroke="rgba(212,175,55,0.7)"
+              stroke-width="1.5"
+            />
+            <text
+              x="182"
+              y="112"
+              font-size="10"
+              fill="rgba(212,175,55,0.8)"
+              font-family="serif"
+            >
+              ☽
+            </text>
+
+            <!-- Left tall minaret -->
+            <rect
+              x="62"
+              y="90"
+              width="14"
+              height="170"
+              rx="3"
+              fill="rgba(7,20,16,0.95)"
+            />
+            <ellipse cx="69" cy="90" rx="7" ry="12" fill="rgba(7,20,16,0.95)" />
+            <line
+              x1="69"
+              y1="78"
+              x2="69"
+              y2="60"
+              stroke="rgba(212,175,55,0.65)"
+              stroke-width="1.5"
+            />
+            <text
+              x="64"
+              y="82"
+              font-size="8"
+              fill="rgba(212,175,55,0.7)"
+              font-family="serif"
+            >
+              ☽
+            </text>
+            <!-- Minaret windows -->
+            <rect
+              x="65"
+              y="110"
+              width="8"
+              height="10"
+              rx="4"
+              fill="rgba(212,175,55,0.12)"
+            />
+            <rect
+              x="65"
+              y="130"
+              width="8"
+              height="10"
+              rx="4"
+              fill="rgba(212,175,55,0.12)"
+            />
+
+            <!-- Right tall minaret -->
+            <rect
+              x="299"
+              y="90"
+              width="14"
+              height="170"
+              rx="3"
+              fill="rgba(7,20,16,0.95)"
+            />
+            <ellipse
+              cx="306"
+              cy="90"
+              rx="7"
+              ry="12"
+              fill="rgba(7,20,16,0.95)"
+            />
+            <line
+              x1="306"
+              y1="78"
+              x2="306"
+              y2="60"
+              stroke="rgba(212,175,55,0.65)"
+              stroke-width="1.5"
+            />
+            <text
+              x="301"
+              y="82"
+              font-size="8"
+              fill="rgba(212,175,55,0.7)"
+              font-family="serif"
+            >
+              ☽
+            </text>
+            <rect
+              x="302"
+              y="110"
+              width="8"
+              height="10"
+              rx="4"
+              fill="rgba(212,175,55,0.12)"
+            />
+            <rect
+              x="302"
+              y="130"
+              width="8"
+              height="10"
+              rx="4"
+              fill="rgba(212,175,55,0.12)"
+            />
+
+            <!-- Left medium minaret -->
+            <rect
+              x="106"
+              y="120"
+              width="11"
+              height="140"
+              rx="2"
+              fill="rgba(9,24,20,0.9)"
+            />
+            <ellipse
+              cx="111"
+              cy="120"
+              rx="6"
+              ry="10"
+              fill="rgba(9,24,20,0.9)"
+            />
+            <line
+              x1="111"
+              y1="110"
+              x2="111"
+              y2="96"
+              stroke="rgba(212,175,55,0.5)"
+              stroke-width="1"
+            />
+
+            <!-- Right medium minaret -->
+            <rect
+              x="258"
+              y="120"
+              width="11"
+              height="140"
+              rx="2"
+              fill="rgba(9,24,20,0.9)"
+            />
+            <ellipse
+              cx="263"
+              cy="120"
+              rx="6"
+              ry="10"
+              fill="rgba(9,24,20,0.9)"
+            />
+            <line
+              x1="263"
+              y1="110"
+              x2="263"
+              y2="96"
+              stroke="rgba(212,175,55,0.5)"
+              stroke-width="1"
+            />
+
+            <!-- Left small dome -->
+            <ellipse
+              cx="135"
+              cy="148"
+              rx="18"
+              ry="16"
+              fill="rgba(8,22,18,0.95)"
+            />
+            <!-- Right small dome -->
+            <ellipse
+              cx="239"
+              cy="148"
+              rx="18"
+              ry="16"
+              fill="rgba(8,22,18,0.95)"
+            />
+
+            <!-- Mosque body windows -->
+            <rect
+              x="160"
+              y="185"
+              width="14"
+              height="18"
+              rx="7"
+              fill="rgba(212,175,55,0.15)"
+            />
+            <rect
+              x="200"
+              y="185"
+              width="14"
+              height="18"
+              rx="7"
+              fill="rgba(212,175,55,0.15)"
+            />
+            <!-- Main entrance arch -->
+            <path
+              d="M176,260 L176,215 Q187,200 198,215 L198,260 Z"
+              fill="rgba(4,10,20,0.8)"
+            />
+
+            <!-- Ground glow line -->
+            <rect
+              x="0"
+              y="255"
+              width="375"
+              height="5"
+              fill="rgba(212,175,55,0.06)"
+            />
+            <!-- Water reflection shimmer -->
+            <rect
+              x="80"
+              y="258"
+              width="215"
+              height="2"
+              rx="1"
+              fill="rgba(212,175,55,0.12)"
+            />
+          </svg>
+        </div>
+        <!-- Moon placeholder -->
+        <div class="moon-placeholder">🌙</div>
+      </div>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- ── Content ───────────────────────────────────────────────────────────── -->
+    <div class="section-wrap">
+      <!-- Greeting card -->
+      <div class="greeting-card">
+        <div class="greeting-text">
+          <p class="greeting-title">Assalāmu 'Alaikum</p>
+          <p class="greeting-sub">
+            May your day be filled with barakah<br />and goodness.
+          </p>
+        </div>
+        <!-- Quran stand placeholder -->
+        <div class="quran-stand-placeholder">
+          <div class="stand-book"></div>
+          <div class="stand-base"></div>
+          <div class="stand-glow"></div>
+        </div>
+      </div>
+
+      <!-- Read card -->
+      <div class="read-card" (click)="goToQuran()">
+        <div class="read-icon-wrap">
+          <!-- Quran icon placeholder -->
+          <div class="quran-icon-placeholder">
+            <ion-icon name="book-outline"></ion-icon>
+          </div>
+        </div>
+        <div class="read-text">
+          <p class="read-title">Read</p>
+          <p class="read-subtitle">The Holy Qur'an</p>
+          <p class="read-desc">Continue your recitation</p>
+        </div>
+        <button class="arrow-btn">
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button>
+      </div>
+
+      <!-- Learn + Progress -->
+      <div class="two-col-row">
+        <div class="mini-card" (click)="goToLearn()">
+          <ion-icon name="book-outline" class="mini-icon"></ion-icon>
+          <p class="mini-title">Learn</p>
+          <p class="mini-sub">Understand & Reflect</p>
+          <p class="mini-desc">Tafsir, Translations<br />and Lessons</p>
+          <button class="mini-arrow">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </button>
+        </div>
+        <div class="mini-card" (click)="goToProgress()">
+          <ion-icon name="trending-up-outline" class="mini-icon"></ion-icon>
+          <p class="mini-title">My Progress</p>
+          <p class="mini-sub">Track your Journey</p>
+          <p class="mini-desc">Goals, Streaks<br />and Achievements</p>
+          <button class="mini-arrow">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Daily verse -->
+      <div class="verse-card">
+        <div class="verse-left">
+          <div class="verse-label">
+            <ion-icon name="sunny-outline"></ion-icon>
+            <span>Daily Verse</span>
+          </div>
+          <p class="verse-arabic">{{ dailyVerse.arabic }}</p>
+          <p class="verse-translation">{{ dailyVerse.translation }}</p>
+          <p class="verse-ref">{{ dailyVerse.ref }}</p>
+        </div>
+        <!-- Arch window placeholder -->
+        <div class="arch-placeholder">
+          <div class="arch-sky"></div>
+          <div class="arch-frame"></div>
+          <div class="arch-glow"></div>
+        </div>
+      </div>
+
+      <!-- Continue reading -->
+      <div class="continue-section">
+        <div class="section-header">
+          <span class="section-title">Continue Reading</span>
+          <button class="view-all-btn" (click)="viewAllSurahs()">
+            View All
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </button>
+        </div>
+
+        <div
+          class="continue-card"
+          *ngFor="let item of recentSurahs"
+          (click)="goToSurah(item.id)"
+        >
+          <div class="progress-ring-wrap">
+            <svg viewBox="0 0 44 44" class="progress-ring">
+              <circle cx="22" cy="22" r="18" class="ring-bg" />
+              <circle
+                cx="22"
+                cy="22"
+                r="18"
+                class="ring-fill"
+                [style.stroke-dashoffset]="getRingOffset(item.progress)"
+              />
+            </svg>
+            <span class="progress-pct">{{ item.progress }}%</span>
+          </div>
+          <div class="continue-info">
+            <p class="continue-name">{{ item.name }}</p>
+            <p class="continue-meta">{{ item.number }}. {{ item.meaning }}</p>
+          </div>
+          <div class="continue-right">
+            <p class="last-read-label">Last read</p>
+            <p class="last-read-time">{{ item.lastRead }}</p>
+          </div>
+          <button class="bookmark-btn">
+            <ion-icon name="bookmark-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="safe-bottom"></div>
+    </div>
+  </div>
+
+  <!-- ── Bottom Nav ─────────────────────────────────────────────────────────── -->
+  <div class="bottom-nav">
+    <button class="nav-item active" (click)="goHome()">
+      <ion-icon name="home-outline"></ion-icon>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" (click)="goToQuran()">
+      <ion-icon name="book-outline"></ion-icon>
+      <span>Qur'an</span>
+    </button>
+    <button class="nav-item nav-center" (click)="goToQuran()">
+      <div class="nav-center-btn">
+        <ion-icon name="book-outline"></ion-icon>
+      </div>
+    </button>
+    <button class="nav-item" (click)="goToLearn()">
+      <ion-icon name="school-outline"></ion-icon>
+      <span>Learn</span>
+    </button>
+    <button class="nav-item" (click)="goToProfile()">
+      <ion-icon name="person-outline"></ion-icon>
+      <span>Profile</span>
+    </button>
+  </div>
+</ion-content>

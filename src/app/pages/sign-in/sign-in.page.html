@@ -1,16 +1,13 @@
 <ion-content [fullscreen]="true" class="nura-content">
   <div class="page-wrapper">
-    <!-- Background glow -->
     <div class="bg-glow"></div>
 
-    <!-- Header -->
     <div class="nura-header">
       <button class="icon-btn" (click)="goBack()">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </button>
     </div>
 
-    <!-- Logo mini -->
     <div class="logo-section">
       <img
         src="assets/images/nura-logo-transparent.png"
@@ -19,7 +16,6 @@
       />
     </div>
 
-    <!-- Title -->
     <div class="title-section">
       <h1 class="page-title">Welcome Back</h1>
       <p class="page-sub">Sign in to continue your journey</p>
@@ -30,13 +26,13 @@
       </div>
     </div>
 
-    <!-- Form -->
-    <div class="form-section">
+    <form class="form-section" [formGroup]="form" (ngSubmit)="signIn()">
       <!-- Email -->
       <div
         class="input-group"
-        [class.focused]="emailFocused"
-        [class.has-value]="email"
+        [class.focused]="email.dirty || email.touched"
+        [class.has-value]="email.value"
+        [class.invalid]="email.invalid && email.touched"
       >
         <div class="input-icon">
           <ion-icon name="mail-outline"></ion-icon>
@@ -46,9 +42,7 @@
           <input
             type="email"
             class="nura-input"
-            [(ngModel)]="email"
-            (focus)="emailFocused = true"
-            (blur)="emailFocused = false"
+            formControlName="email"
             autocomplete="email"
             inputmode="email"
             placeholder="your@email.com"
@@ -59,8 +53,9 @@
       <!-- Password -->
       <div
         class="input-group"
-        [class.focused]="passFocused"
-        [class.has-value]="password"
+        [class.focused]="password.dirty || password.touched"
+        [class.has-value]="password.value"
+        [class.invalid]="password.invalid && password.touched"
       >
         <div class="input-icon">
           <ion-icon name="lock-closed-outline"></ion-icon>
@@ -70,14 +65,12 @@
           <input
             [type]="showPassword ? 'text' : 'password'"
             class="nura-input"
-            [(ngModel)]="password"
-            (focus)="passFocused = true"
-            (blur)="passFocused = false"
+            formControlName="password"
             autocomplete="current-password"
             placeholder="••••••••"
           />
         </div>
-        <button class="eye-btn" (click)="togglePassword()">
+        <button type="button" class="eye-btn" (click)="togglePassword()">
           <ion-icon
             [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
           ></ion-icon>
@@ -86,23 +79,13 @@
 
       <!-- Forgot password -->
       <div class="forgot-wrap">
-        <button class="forgot-btn" (click)="forgotPassword()">
+        <button type="button" class="forgot-btn" (click)="forgotPassword()">
           Forgot password?
         </button>
       </div>
 
-      <!-- Error -->
-      <div class="error-msg" *ngIf="errorMsg">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <span>{{ errorMsg }}</span>
-      </div>
-
-      <!-- Sign In button -->
-      <button
-        class="btn-primary"
-        (click)="signIn()"
-        [class.loading]="isLoading"
-      >
+      <!-- Sign In -->
+      <button type="submit" class="btn-primary" [class.loading]="isLoading">
         <ng-container *ngIf="!isLoading">
           <span>SIGN IN</span>
           <ion-icon name="chevron-forward-outline" class="btn-arrow"></ion-icon>
@@ -123,11 +106,11 @@
 
       <!-- Social -->
       <div class="social-row">
-        <button class="btn-social" (click)="loginApple()">
+        <button type="button" class="btn-social" (click)="loginApple()">
           <ion-icon name="logo-apple" class="social-icon"></ion-icon>
           <span>Apple</span>
         </button>
-        <button class="btn-social" (click)="loginGoogle()">
+        <button type="button" class="btn-social" (click)="loginGoogle()">
           <svg
             width="18"
             height="18"
@@ -154,9 +137,8 @@
           <span>Google</span>
         </button>
       </div>
-    </div>
+    </form>
 
-    <!-- Footer -->
     <div class="footer-section">
       <p class="footer-text">
         Don't have an account?

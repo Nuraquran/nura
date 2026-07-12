@@ -1,21 +1,15 @@
 <div class="surah-card" (click)="onCardClick()">
-  <!-- Gold left accent line (show on hover/active via CSS) -->
-
-  <!-- Number Badge -->
   <div class="surah-number">
     <span>{{ surah.number }}</span>
   </div>
 
-  <!-- Arabic Name -->
   <div class="surah-arabic">{{ surah.arabic }}</div>
 
-  <!-- Latin Name + Meaning -->
   <div class="surah-info">
     <span class="surah-name">{{ surah.name }}</span>
     <span class="surah-meaning">{{ surah.meaning }}</span>
   </div>
 
-  <!-- Ayat Count -->
   <div class="surah-meta">
     <span class="ayat-count">{{ surah.ayat }}</span>
     <span class="ayat-label">ayat</span>

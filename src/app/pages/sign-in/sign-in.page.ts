@@ -1,8 +1,18 @@
+// src/app/pages/sign-in/sign-in.page.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonIcon,
+  ToastController,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   arrowBackOutline,
@@ -13,26 +23,30 @@ import {
   chevronForwardOutline,
   alertCircleOutline,
   logoApple,
+  closeCircleOutline,
+  checkmarkCircleOutline,
+  closeOutline,
 } from 'ionicons/icons';
+import { SupabaseService } from '../../core/services/supabase.service';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.page.html',
   styleUrls: ['./sign-in.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, CommonModule, FormsModule],
+  imports: [IonContent, IonIcon, CommonModule, ReactiveFormsModule],
 })
 export class SignInPage implements OnInit {
-  email = '';
-  password = '';
-
-  emailFocused = false;
-  passFocused = false;
+  form!: FormGroup;
   showPassword = false;
   isLoading = false;
-  errorMsg = '';
 
-  constructor(private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private supabase: SupabaseService,
+    private toastCtrl: ToastController,
+  ) {
     addIcons({
       arrowBackOutline,
       mailOutline,
@@ -42,11 +56,63 @@ export class SignInPage implements OnInit {
       chevronForwardOutline,
       alertCircleOutline,
       logoApple,
+      closeCircleOutline,
+      checkmarkCircleOutline,
+      closeOutline,
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
+  get email() {
+    return this.form.get('email')!;
+  }
+  get password() {
+    return this.form.get('password')!;
+  }
+
+  get emailError(): string {
+    if (!this.email.touched) return '';
+    if (this.email.hasError('required')) return 'Email is required.';
+    if (this.email.hasError('email')) return 'Enter a valid email address.';
+    return '';
+  }
+
+  get passwordError(): string {
+    if (!this.password.touched) return '';
+    if (this.password.hasError('required')) return 'Password is required.';
+    if (this.password.hasError('minlength'))
+      return 'Password must be at least 6 characters.';
+    return '';
+  }
+
+  // ── Toast — dark pill popup macam The Noor ─────────────────────────────────
+  private async showToast(
+    message: string,
+    type: 'error' | 'success' = 'error',
+  ) {
+    try {
+      await this.toastCtrl.dismiss();
+    } catch {}
+
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 3000,
+      position: 'bottom',
+      cssClass: `nura-toast nura-toast--${type}`,
+      icon:
+        type === 'error' ? 'close-circle-outline' : 'checkmark-circle-outline',
+      buttons: [{ icon: 'close-outline', role: 'cancel' }],
+    });
+    await toast.present();
+  }
+
+  // ── Actions ────────────────────────────────────────────────────────────────
   goBack() {
     this.router.navigateByUrl('/login');
   }
@@ -59,54 +125,45 @@ export class SignInPage implements OnInit {
   goToRegister() {
     this.router.navigateByUrl('/register');
   }
-  loginGoogle() {
-    console.log('Google sign in'); /* TODO: Firebase/OAuth */
-  }
-  loginApple() {
-    console.log('Apple sign in'); /* TODO: Apple Sign-In */
-  }
 
   async signIn() {
-    this.errorMsg = '';
-
-    if (!this.email.trim()) {
-      this.errorMsg = 'Please enter your email address.';
+    this.form.markAllAsTouched();
+    if (this.form.invalid) {
+      await this.showToast('Please fill in all fields correctly.');
       return;
     }
-    if (!this.isValidEmail(this.email)) {
-      this.errorMsg = 'Please enter a valid email address.';
-      return;
-    }
-    if (!this.password) {
-      this.errorMsg = 'Please enter your password.';
-      return;
-    }
-
     this.isLoading = true;
     try {
-      // TODO: gantikan dengan auth service sebenar
-      // await this.authService.signIn(this.email, this.password);
-      await this.mockSignIn();
+      await this.supabase.signIn(this.email.value.trim(), this.password.value);
+      await this.showToast('Welcome back!', 'success');
       this.router.navigateByUrl('/home', { replaceUrl: true });
     } catch (err: any) {
-      this.errorMsg = err?.message ?? 'Sign in failed. Please try again.';
+      const msg = err?.message ?? '';
+      if (msg.includes('Invalid login credentials')) {
+        await this.showToast('Incorrect email or password.');
+      } else if (msg.includes('Email not confirmed')) {
+        await this.showToast('Please verify your email first.');
+      } else {
+        await this.showToast('Sign in failed. Please try again.');
+      }
     } finally {
       this.isLoading = false;
     }
   }
 
-  private isValidEmail(e: string) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  async loginGoogle() {
+    try {
+      await this.supabase.signInWithGoogle();
+    } catch {
+      await this.showToast('Google sign in failed.');
+    }
   }
 
-  // Buang method ni bila auth service dah ready
-  private mockSignIn(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        this.email === 'test@nura.app' && this.password === 'password'
-          ? resolve()
-          : reject({ message: 'Incorrect email or password.' });
-      }, 1500);
-    });
+  async loginApple() {
+    try {
+      await this.supabase.signInWithApple();
+    } catch {
+      await this.showToast('Apple sign in failed.');
+    }
   }
 }

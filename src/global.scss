@@ -38,10 +38,8 @@
 
 /* ── NÛRĀ Global Styles ─────────────────────────────────────────────────── */
 
-/* Google Fonts – import in index.html or here via @import */
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&family=Scheherazade+New:wght@400;700&display=swap");
 
-/* Smooth scrolling */
 * {
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
@@ -51,8 +49,69 @@ ion-app {
   background: #0d1220;
 }
 
-/* Ripple / press feedback for menu cards */
 .menu-card {
   -webkit-user-select: none;
   user-select: none;
+}
+
+// ─── NÛRĀ Toast ──────────────────────────────────────────────────────────────
+.nura-toast {
+  --border-radius: 50px;
+  --min-width: 260px;
+  --max-width: 85vw;
+  --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --padding-start: 16px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+
+  &::part(container) {
+    background: #1a1f2e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    backdrop-filter: blur(16px);
+    align-items: center;
+  }
+
+  &::part(icon) {
+    font-size: 20px;
+    margin-inline-end: 8px;
+  }
+
+  &::part(message) {
+    font-family: "Lato", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &::part(button) {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 18px;
+    padding: 0 4px;
+  }
+
+  // Error — red tint
+  &.nura-toast--error {
+    &::part(container) {
+      background: #1e1218;
+      border-color: rgba(220, 80, 80, 0.3);
+      box-shadow: 0 8px 32px rgba(200, 50, 50, 0.2);
+    }
+    &::part(icon) {
+      color: #e05c5c;
+    }
+  }
+
+  // Success — gold tint
+  &.nura-toast--success {
+    &::part(container) {
+      background: #0f1e14;
+      border-color: rgba(212, 175, 55, 0.3);
+      box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15);
+    }
+    &::part(icon) {
+      color: #d4af37;
+    }
+  }
 }
