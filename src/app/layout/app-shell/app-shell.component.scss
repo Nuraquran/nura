@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+app-header {
+  flex: none;
+}
+
+ion-tabs {
+  position: relative;
+  min-height: 0;
+  flex: 1;
+}
+
+ion-tab-bar {
+  min-height: calc(4rem + var(--ion-safe-area-bottom, 0px));
+  padding: var(--nura-space-1) var(--nura-space-2)
+    var(--ion-safe-area-bottom, 0px);
+  border-top: 1px solid var(--nura-color-border);
+  box-shadow: 0 -8px 24px rgb(14 32 29 / 4%);
+}
+
+ion-tab-button {
+  --padding-start: var(--nura-space-1);
+  --padding-end: var(--nura-space-1);
+  min-width: var(--nura-touch-target);
+  min-height: var(--nura-touch-target);
+  font-size: var(--nura-font-size-xs);
+}
+
+ion-icon {
+  font-size: var(--nura-icon-lg);
+}

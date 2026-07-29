@@ -1,0 +1,17 @@
+.skeleton {
+  display: block;
+  overflow: hidden;
+  background: var(--nura-color-surface-subtle);
+  border-radius: var(--nura-radius-sm);
+  animation: nura-pulse 1.6s ease-in-out infinite;
+}
+
+.skeleton--rounded {
+  border-radius: var(--nura-radius-full);
+}
+
+@keyframes nura-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}

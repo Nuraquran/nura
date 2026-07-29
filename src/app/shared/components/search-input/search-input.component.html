@@ -1,0 +1,9 @@
+<ion-searchbar
+  mode="md"
+  show-clear-button="focus"
+  [value]="value"
+  [placeholder]="placeholder"
+  [debounce]="debounce"
+  [attr.aria-label]="label"
+  (ionInput)="valueChange.emit($event.detail.value ?? '')"
+/>

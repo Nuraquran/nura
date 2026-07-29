@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  padding-block: var(--nura-space-2);
+}
+
+hr {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--nura-color-border);
+}

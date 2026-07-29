@@ -1,0 +1,17 @@
+ion-modal {
+  --background: var(--nura-color-surface);
+  --border-radius: var(--nura-radius-xl) var(--nura-radius-xl) 0 0;
+  --box-shadow: var(--nura-shadow-lg);
+  --backdrop-opacity: 0.48;
+}
+
+ion-toolbar {
+  --background: var(--nura-color-surface);
+  --color: var(--nura-color-text);
+  --padding-start: var(--nura-space-2);
+  --padding-end: var(--nura-space-2);
+}
+
+.sheet-content {
+  padding: var(--nura-space-5);
+}

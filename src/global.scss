@@ -1,117 +1,58 @@
 /*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
+ * Core CSS required for Ionic components to work properly.
  */
-
-/* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
-/* Basic CSS for apps built with Ionic */
+/*
+ * Basic Ionic CSS.
+ */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/*
+ * Optional Ionic CSS utilities.
+ */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+html {
+  background: var(--nura-color-background);
+}
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
-
-/* ── NÛRĀ Global Styles ─────────────────────────────────────────────────── */
-
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&family=Scheherazade+New:wght@400;700&display=swap");
+body {
+  color: var(--nura-color-text);
+  background: var(--nura-color-background);
+  font-family: var(--nura-font-family);
+  font-size: var(--nura-font-size-md);
+}
 
 * {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
 }
 
-ion-app {
-  background: #0d1220;
+button,
+input,
+textarea {
+  font: inherit;
 }
 
-.menu-card {
-  -webkit-user-select: none;
-  user-select: none;
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--nura-color-primary) 45%, transparent);
+  outline-offset: 2px;
 }
 
-// ─── NÛRĀ Toast ──────────────────────────────────────────────────────────────
-.nura-toast {
-  --border-radius: 50px;
-  --min-width: 260px;
-  --max-width: 85vw;
-  --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-  --padding-start: 16px;
-  --padding-end: 12px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
-
-  &::part(container) {
-    background: #1a1f2e;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    backdrop-filter: blur(16px);
-    align-items: center;
-  }
-
-  &::part(icon) {
-    font-size: 20px;
-    margin-inline-end: 8px;
-  }
-
-  &::part(message) {
-    font-family: "Lato", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  &::part(button) {
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 18px;
-    padding: 0 4px;
-  }
-
-  // Error — red tint
-  &.nura-toast--error {
-    &::part(container) {
-      background: #1e1218;
-      border-color: rgba(220, 80, 80, 0.3);
-      box-shadow: 0 8px 32px rgba(200, 50, 50, 0.2);
-    }
-    &::part(icon) {
-      color: #e05c5c;
-    }
-  }
-
-  // Success — gold tint
-  &.nura-toast--success {
-    &::part(container) {
-      background: #0f1e14;
-      border-color: rgba(212, 175, 55, 0.3);
-      box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15);
-    }
-    &::part(icon) {
-      color: #d4af37;
-    }
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

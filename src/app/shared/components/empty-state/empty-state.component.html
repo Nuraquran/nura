@@ -1,0 +1,12 @@
+<section class="state" aria-live="polite">
+  <span class="state__icon" aria-hidden="true">
+    <ion-icon [name]="icon" />
+  </span>
+  <h2>{{ title }}</h2>
+  @if (message) {
+    <p>{{ message }}</p>
+  }
+  <div class="state__action">
+    <ng-content />
+  </div>
+</section>

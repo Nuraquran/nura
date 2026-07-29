@@ -1,0 +1,13 @@
+ion-searchbar {
+  --background: var(--nura-color-surface);
+  --color: var(--nura-color-text);
+  --placeholder-color: var(--nura-color-text-muted);
+  --icon-color: var(--nura-color-text-muted);
+  --clear-button-color: var(--nura-color-text-muted);
+  --border-radius: var(--nura-radius-md);
+  --box-shadow: none;
+  min-height: var(--nura-touch-target);
+  padding: 0;
+  border: 1px solid var(--nura-color-border);
+  border-radius: var(--nura-radius-md);
+}

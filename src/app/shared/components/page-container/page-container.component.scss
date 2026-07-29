@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.page-container {
+  width: min(100%, var(--nura-content-max-width));
+  min-height: 100%;
+  margin-inline: auto;
+  padding: var(--nura-space-6) var(--nura-space-5) var(--nura-space-12);
+}
+
+@media (min-width: 48rem) {
+  .page-container {
+    padding-inline: var(--nura-space-8);
+  }
+}

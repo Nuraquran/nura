@@ -1,0 +1,9 @@
+ion-input {
+  --background: var(--nura-color-surface);
+  --color: var(--nura-color-text);
+  --border-color: var(--nura-color-border);
+  --border-radius: var(--nura-radius-md);
+  --highlight-color-focused: var(--nura-color-primary);
+  --highlight-color-invalid: var(--nura-color-danger);
+  min-height: var(--nura-touch-target);
+}

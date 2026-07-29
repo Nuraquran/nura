@@ -1,0 +1,27 @@
+.icon-button {
+  display: inline-grid;
+  width: var(--nura-touch-target);
+  height: var(--nura-touch-target);
+  padding: 0;
+  place-items: center;
+  color: var(--nura-color-text);
+  background: transparent;
+  border: 0;
+  border-radius: var(--nura-radius-full);
+  cursor: pointer;
+  transition: background-color var(--nura-duration-fast)
+    var(--nura-easing-standard);
+}
+
+.icon-button:hover:not(:disabled) {
+  background: var(--nura-color-surface-subtle);
+}
+
+.icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+::ng-deep .icon-button ion-icon {
+  font-size: var(--nura-icon-lg);
+}

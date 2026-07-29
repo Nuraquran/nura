@@ -1,0 +1,12 @@
+.card {
+  padding: var(--nura-space-5);
+  background: var(--nura-color-surface);
+  border: 1px solid var(--nura-color-border);
+  border-radius: var(--nura-radius-lg);
+  box-shadow: var(--nura-shadow-sm);
+}
+
+.card--raised {
+  border-color: transparent;
+  box-shadow: var(--nura-shadow-md);
+}

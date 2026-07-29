@@ -1,0 +1,14 @@
+ion-toolbar {
+  --min-height: 3.75rem;
+  --padding-start: var(--nura-space-5);
+  --padding-end: var(--nura-space-3);
+  border-bottom: 1px solid var(--nura-color-border);
+}
+
+ion-title {
+  padding-inline: 0;
+  color: var(--nura-color-text);
+  font-size: var(--nura-font-size-xl);
+  font-weight: var(--nura-font-weight-semibold);
+  letter-spacing: -0.02em;
+}

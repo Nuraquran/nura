@@ -1,0 +1,10 @@
+<button
+  class="button"
+  [class.button--primary]="variant === 'primary'"
+  [class.button--secondary]="variant === 'secondary'"
+  [class.button--full-width]="fullWidth"
+  [type]="type"
+  [disabled]="disabled"
+>
+  <ng-content />
+</button>

@@ -1,0 +1,16 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <app-icon-button
+        [label]="resolvedTheme() === 'dark' ? 'Use light theme' : 'Use dark theme'"
+        (pressed)="toggleTheme()"
+      >
+        <ion-icon
+          [name]="resolvedTheme() === 'dark' ? 'sunny-outline' : 'moon-outline'"
+          aria-hidden="true"
+        />
+      </app-icon-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

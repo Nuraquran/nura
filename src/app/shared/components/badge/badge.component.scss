@@ -1,0 +1,22 @@
+.badge {
+  display: inline-flex;
+  min-height: 1.5rem;
+  padding: var(--nura-space-1) var(--nura-space-2);
+  align-items: center;
+  color: var(--nura-color-text-muted);
+  background: var(--nura-color-surface-subtle);
+  border-radius: var(--nura-radius-full);
+  font-size: var(--nura-font-size-xs);
+  font-weight: var(--nura-font-weight-semibold);
+  line-height: 1;
+}
+
+.badge--primary {
+  color: var(--nura-color-primary);
+  background: color-mix(in srgb, var(--nura-color-primary) 10%, transparent);
+}
+
+.badge--gold {
+  color: var(--nura-color-accent);
+  background: color-mix(in srgb, var(--nura-color-accent) 12%, transparent);
+}
