@@ -3,6 +3,7 @@
     <article
       class="ayah"
       [class.ayah--selected]="selectedAyahId() === ayah.id"
+      [class.ayah--bookmarked]="isBookmarked(ayah.id)"
     >
       <div
         class="ayah__selectable"
@@ -10,8 +11,8 @@
         tabindex="0"
         [attr.aria-pressed]="selectedAyahId() === ayah.id"
         [attr.aria-label]="'Select ayah ' + ayah.number"
-        (click)="toggleSelection(ayah.id)"
-        (keydown)="handleSelectionKey($event, ayah.id)"
+        (click)="toggleSelection(ayah)"
+        (keydown)="handleSelectionKey($event, ayah)"
       >
         <span class="ayah__number" aria-hidden="true">{{ ayah.number }}</span>
         <p
@@ -47,19 +48,19 @@
         <div class="ayah__actions" aria-label="Selected ayah actions">
           <button
             type="button"
-            (click)="performMockAction('Play', ayah.number)"
+            (click)="requestAction('play', ayah)"
           >
-            Play
+            Audio preview
           </button>
           <button
             type="button"
-            (click)="performMockAction('Bookmark', ayah.number)"
+            (click)="requestAction('bookmark', ayah)"
           >
-            Bookmark
+            {{ isBookmarked(ayah.id) ? 'Remove bookmark' : 'Bookmark' }}
           </button>
           <button
             type="button"
-            (click)="performMockAction('Share', ayah.number)"
+            (click)="requestAction('share', ayah)"
           >
             Share
           </button>
@@ -68,5 +69,4 @@
     </article>
   }
 
-  <p class="action-status" aria-live="polite">{{ actionMessage() }}</p>
 </section>

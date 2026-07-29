@@ -9,6 +9,13 @@ export interface Ayah {
   readonly translation: string;
 }
 
+export type AyahAction = 'play' | 'bookmark' | 'share';
+
+export interface AyahActionRequest {
+  readonly action: AyahAction;
+  readonly ayah: Ayah;
+}
+
 export interface SurahReaderData {
   readonly number: number;
   readonly name: string;

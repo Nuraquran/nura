@@ -18,12 +18,7 @@
 
 .reader-header ion-toolbar {
   --min-height: 3.5rem;
-  --border-width: 0 0 1px;
-  --border-color: color-mix(
-    in srgb,
-    var(--nura-color-border) 54%,
-    transparent
-  );
+  --border-width: 0;
 }
 
 .reader-header ion-button {
@@ -45,57 +40,43 @@ ion-content {
 
 .reader-content {
   width: min(100%, 46rem);
-  padding: var(--nura-space-5) var(--nura-space-4) var(--nura-space-8);
+  padding: var(--nura-space-3) var(--nura-space-4) var(--nura-space-8);
   margin-inline: auto;
 }
 
 .surah-info {
   display: flex;
-  gap: var(--nura-space-4);
-  align-items: end;
+  min-height: var(--nura-touch-target);
+  gap: var(--nura-space-3);
+  align-items: center;
   justify-content: space-between;
-  padding-bottom: var(--nura-space-5);
+  padding-bottom: var(--nura-space-2);
 }
 
-.surah-info p,
 .surah-info h1 {
   margin: 0;
 }
 
 .surah-info p {
+  margin: 0;
   color: var(--nura-color-text-muted);
   font-size: var(--nura-font-size-xs);
-}
-
-.surah-info h1 {
-  margin-top: var(--nura-space-1);
-  color: var(--nura-color-text);
-  font-size: var(--nura-font-size-xl);
-  line-height: var(--nura-line-height-tight);
-}
-
-.surah-info__meta {
-  display: grid;
-  gap: var(--nura-space-1);
-  justify-items: end;
-  color: var(--nura-color-text-muted);
-  font-size: var(--nura-font-size-xs);
+  text-align: right;
 }
 
 .surah-info__arabic {
+  flex: none;
   color: var(--nura-color-primary);
   font-family: var(--nura-font-family-arabic);
   font-size: var(--nura-font-size-xl);
+  font-weight: var(--nura-font-weight-regular);
+  line-height: var(--nura-line-height-tight);
 }
 
 .reader-footer ion-toolbar {
+  --background: var(--nura-color-surface);
   --min-height: calc(4rem + var(--ion-safe-area-bottom, 0px));
-  --border-width: 1px 0 0;
-  --border-color: color-mix(
-    in srgb,
-    var(--nura-color-border) 54%,
-    transparent
-  );
+  --border-width: 0;
   --padding-bottom: var(--ion-safe-area-bottom, 0px);
 }
 
@@ -139,16 +120,7 @@ ion-content {
 
 @media (max-width: 22rem) {
   .reader-content {
-    padding-top: var(--nura-space-4);
-  }
-
-  .surah-info {
-    align-items: start;
-  }
-
-  .surah-info__meta > span:last-child {
-    max-width: 7rem;
-    text-align: right;
+    padding-top: var(--nura-space-2);
   }
 }
 

@@ -50,6 +50,11 @@
   font-weight: var(--nura-font-weight-semibold);
 }
 
+.ayah--bookmarked .ayah__number {
+  color: var(--nura-color-primary-contrast);
+  background: var(--nura-color-primary);
+}
+
 .ayah__arabic,
 .ayah__translation {
   margin: 0;
@@ -88,6 +93,7 @@
 
 .ayah__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--nura-space-2);
   padding: var(--nura-space-2);
   animation: reader-actions-in var(--nura-duration-normal)
@@ -109,16 +115,6 @@
 
 .ayah__actions button:hover {
   background: var(--nura-color-surface-subtle);
-}
-
-.action-status {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
 }
 
 @keyframes reader-actions-in {

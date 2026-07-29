@@ -1,11 +1,18 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
+  Output,
   signal,
 } from '@angular/core';
 
-import { Ayah, ReadingPreferences } from '../../reader.models';
+import {
+  Ayah,
+  AyahAction,
+  AyahActionRequest,
+  ReadingPreferences,
+} from '../../reader.models';
 
 @Component({
   selector: 'app-ayah-list',
@@ -16,29 +23,35 @@ import { Ayah, ReadingPreferences } from '../../reader.models';
 export class AyahListComponent {
   @Input({ required: true }) ayahs: readonly Ayah[] = [];
   @Input({ required: true }) preferences!: ReadingPreferences;
+  @Input() bookmarkedAyahIds: readonly number[] = [];
+  @Output() readonly selectedAyahChange = new EventEmitter<Ayah | null>();
+  @Output() readonly actionRequested =
+    new EventEmitter<AyahActionRequest>();
 
   readonly selectedAyahId = signal<number | null>(null);
-  readonly actionMessage = signal('');
 
   trackByAyahId(_index: number, ayah: Ayah): number {
     return ayah.id;
   }
 
-  toggleSelection(ayahId: number): void {
-    this.selectedAyahId.update((selectedId) =>
-      selectedId === ayahId ? null : ayahId,
-    );
-    this.actionMessage.set('');
+  toggleSelection(ayah: Ayah): void {
+    const selectedAyah = this.selectedAyahId() === ayah.id ? null : ayah;
+    this.selectedAyahId.set(selectedAyah?.id ?? null);
+    this.selectedAyahChange.emit(selectedAyah);
   }
 
-  handleSelectionKey(event: KeyboardEvent, ayahId: number): void {
+  handleSelectionKey(event: KeyboardEvent, ayah: Ayah): void {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      this.toggleSelection(ayahId);
+      this.toggleSelection(ayah);
     }
   }
 
-  performMockAction(action: string, ayahNumber: number): void {
-    this.actionMessage.set(`${action} selected for ayah ${ayahNumber}.`);
+  requestAction(action: AyahAction, ayah: Ayah): void {
+    this.actionRequested.emit({ action, ayah });
+  }
+
+  isBookmarked(ayahId: number): boolean {
+    return this.bookmarkedAyahIds.includes(ayahId);
   }
 }

@@ -8,36 +8,27 @@
 
     <ion-title>{{ surah.name }}</ion-title>
 
-    <ion-buttons slot="end">
-      <ion-button disabled aria-label="More options">
-        <ion-icon
-          slot="icon-only"
-          name="ellipsis-horizontal"
-          aria-hidden="true"
-        />
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <main class="reader-content">
     <section class="surah-info" aria-labelledby="surah-title">
-      <div>
-        <p>Surah {{ surah.number }}</p>
-        <h1 id="surah-title">{{ surah.name }}</h1>
-      </div>
-      <div class="surah-info__meta">
-        <span class="surah-info__arabic" lang="ar" dir="rtl">
-          {{ surah.arabicName }}
-        </span>
-        <span>{{ surah.totalAyahs }} ayahs · {{ surah.revelationPlace }}</span>
-      </div>
+      <h1 id="surah-title" class="surah-info__arabic" lang="ar" dir="rtl">
+        {{ surah.arabicName }}
+      </h1>
+      <p>
+        Surah {{ surah.number }} · {{ surah.totalAyahs }} ayahs ·
+        {{ surah.revelationPlace }}
+      </p>
     </section>
 
     <app-ayah-list
       [ayahs]="surah.ayahs"
       [preferences]="preferences()"
+      [bookmarkedAyahIds]="bookmarkedAyahIds()"
+      (selectedAyahChange)="selectedAyah.set($event)"
+      (actionRequested)="handleAyahAction($event)"
     />
   </main>
 </ion-content>
@@ -47,45 +38,38 @@
     <nav class="reading-toolbar" aria-label="Reading controls">
       <button
         type="button"
-        [attr.aria-label]="isPlaying() ? 'Pause recitation' : 'Play recitation'"
-        [attr.aria-pressed]="isPlaying()"
-        (click)="togglePlayback()"
+        aria-label="Play audio preview demo"
+        (click)="acknowledgeAudioPreview()"
       >
-        <ion-icon
-          [name]="isPlaying() ? 'pause-outline' : 'play-outline'"
-          aria-hidden="true"
-        />
-        <span>{{ isPlaying() ? 'Pause' : 'Play' }}</span>
+        <ion-icon name="play-outline" aria-hidden="true" />
+        <span>Play</span>
       </button>
 
       <button
         type="button"
         [attr.aria-label]="
-          isBookmarked() ? 'Remove surah bookmark' : 'Bookmark surah'
+          selectedAyah()
+            ? selectedAyahBookmarked()
+              ? 'Remove selected ayah bookmark'
+              : 'Bookmark selected ayah'
+            : 'Select an ayah to bookmark'
         "
-        [attr.aria-pressed]="isBookmarked()"
-        (click)="toggleBookmark()"
+        [attr.aria-pressed]="selectedAyahBookmarked()"
+        (click)="toggleSelectedAyahBookmark()"
       >
         <ion-icon
-          [name]="isBookmarked() ? 'bookmark' : 'bookmark-outline'"
+          [name]="selectedAyahBookmarked() ? 'bookmark' : 'bookmark-outline'"
           aria-hidden="true"
         />
-        <span>Bookmark</span>
+        <span>Bookmark Ayah</span>
       </button>
 
       <button
         type="button"
-        [attr.aria-label]="
-          shareAcknowledged() ? 'Share selected' : 'Share surah'
-        "
-        (click)="acknowledgeShare()"
+        [attr.aria-label]="selectedAyah() ? 'Share selected ayah' : 'Share surah'"
+        (click)="shareReading()"
       >
-        <ion-icon
-          [name]="
-            shareAcknowledged() ? 'checkmark-outline' : 'share-social-outline'
-          "
-          aria-hidden="true"
-        />
+        <ion-icon name="share-social-outline" aria-hidden="true" />
         <span>Share</span>
       </button>
 
@@ -106,4 +90,12 @@
   [preferences]="preferences()"
   (openChange)="settingsOpen.set($event)"
   (preferencesChange)="updatePreferences($event)"
+/>
+
+<ion-toast
+  [isOpen]="toastOpen()"
+  [message]="toastMessage()"
+  [duration]="2400"
+  position="bottom"
+  (didDismiss)="toastOpen.set(false)"
 />
