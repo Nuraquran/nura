@@ -1,26 +1,10 @@
-<app-card tone="primary" elevation="raised">
+<app-card>
   <div class="prayer">
-    <div class="prayer__top">
-      <app-badge tone="gold">Next prayer</app-badge>
-      <span>{{ prayer.hijriDate }}</span>
+    <div>
+      <span class="prayer__label">Next prayer</span>
+      <h2>{{ prayer.name }}</h2>
+      <p>{{ prayer.countdown }}</p>
     </div>
-
-    <div class="prayer__time">
-      <div>
-        <h2>{{ prayer.name }}</h2>
-        <p>{{ prayer.countdown }}</p>
-      </div>
-      <strong>{{ prayer.time }}</strong>
-    </div>
-
-    <div class="prayer__footer">
-      <span class="location">
-        <ion-icon name="location-outline" aria-hidden="true" />
-        {{ prayer.location }}
-      </span>
-      <app-button variant="secondary" size="compact" [disabled]="true">
-        View prayer times
-      </app-button>
-    </div>
+    <strong>{{ prayer.time }}</strong>
   </div>
 </app-card>

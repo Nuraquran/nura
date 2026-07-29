@@ -1,22 +1,20 @@
-:host {
-  --nura-card-padding: var(--nura-space-4);
-}
-
 blockquote {
   margin: 0;
+  padding-block: var(--nura-space-2);
 }
 
 .arabic {
-  margin: var(--nura-space-2) 0 var(--nura-space-4);
+  margin: 0 0 var(--nura-space-4);
   color: var(--nura-color-text);
   font-family: var(--nura-font-family-arabic);
-  font-size: 1.625rem;
+  font-size: 2rem;
   font-weight: var(--nura-font-weight-regular);
   line-height: 2;
   text-align: right;
 }
 
 .translation {
+  max-width: 34rem;
   margin: 0;
   color: var(--nura-color-text);
   font-size: var(--nura-font-size-md);
@@ -24,11 +22,7 @@ blockquote {
 }
 
 footer {
-  display: flex;
-  gap: var(--nura-space-4);
-  align-items: center;
-  justify-content: space-between;
-  margin-top: var(--nura-space-4);
+  margin-top: var(--nura-space-3);
 }
 
 cite {
@@ -37,23 +31,8 @@ cite {
   font-style: normal;
 }
 
-.verse-actions {
-  display: flex;
-  flex: none;
-  gap: var(--nura-space-1);
-}
-
 @media (min-width: 48rem) {
-  :host {
-    --nura-card-padding: var(--nura-space-5);
-  }
-
   .arabic {
-    margin-bottom: var(--nura-space-5);
-    font-size: var(--nura-font-size-arabic);
-  }
-
-  .translation {
-    font-size: var(--nura-font-size-lg);
+    font-size: 2.25rem;
   }
 }

@@ -5,10 +5,8 @@ import { addIcons } from 'ionicons';
 import {
   bookmarkOutline,
   bookOutline,
-  compassOutline,
   headsetOutline,
   heartOutline,
-  readerOutline,
 } from 'ionicons/icons';
 
 import { SectionHeaderComponent } from '../../../../shared/components/section-header/section-header.component';
@@ -28,10 +26,8 @@ export class QuickActionsComponent {
     addIcons({
       bookmarkOutline,
       bookOutline,
-      compassOutline,
       headsetOutline,
       heartOutline,
-      readerOutline,
     });
   }
 }

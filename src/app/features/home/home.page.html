@@ -3,21 +3,13 @@
     <div class="home">
       <app-greeting-header [greeting]="greeting" [user]="home.user" />
 
+      <app-continue-reading-card [reading]="home.reading" />
       <app-prayer-card [prayer]="home.prayer" />
 
-      <div class="home__dashboard">
-        <div class="home__primary">
-          <app-continue-reading-card [reading]="home.reading" />
-          <app-quick-actions [actions]="home.quickActions" />
-        </div>
-
-        <div class="home__secondary">
-          <app-daily-verse-card [verse]="home.dailyVerse" />
-          <app-khatam-progress [progress]="home.khatam" />
-        </div>
-      </div>
-
+      <app-quick-actions [actions]="home.quickActions" />
+      <app-daily-verse-card [verse]="home.dailyVerse" />
       <app-recent-surahs [surahs]="home.recentSurahs" />
+      <app-khatam-progress [progress]="home.khatam" />
     </div>
   </app-page-container>
 </ion-content>

@@ -2,34 +2,16 @@ ion-content {
   --background: var(--nura-color-background);
 }
 
-.home,
-.home__primary,
-.home__secondary {
+.home {
   display: grid;
   gap: var(--nura-space-6);
-}
-
-.home {
+  width: min(100%, 42rem);
+  margin-inline: auto;
   padding-bottom: var(--nura-space-4);
 }
 
-.home__dashboard {
-  display: grid;
-  gap: var(--nura-space-6);
-}
-
 @media (min-width: 48rem) {
-  .home,
-  .home__primary,
-  .home__secondary,
-  .home__dashboard {
+  .home {
     gap: var(--nura-space-8);
-  }
-}
-
-@media (min-width: 64rem) {
-  .home__dashboard {
-    grid-template-columns: minmax(0, 1.08fr) minmax(22rem, 0.92fr);
-    align-items: start;
   }
 }

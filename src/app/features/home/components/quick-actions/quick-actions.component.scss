@@ -1,20 +1,20 @@
 .actions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--nura-space-1);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--nura-space-2);
 }
 
 .actions a {
   display: flex;
   min-width: 0;
-  min-height: 4.75rem;
+  min-height: 4.5rem;
   padding: var(--nura-space-2) var(--nura-space-1);
   align-items: center;
   justify-content: center;
   color: var(--nura-color-text);
   background: transparent;
   border: 0;
-  border-radius: var(--nura-radius-lg);
+  border-radius: var(--nura-radius-xl);
   font-size: var(--nura-font-size-xs);
   font-weight: var(--nura-font-weight-medium);
   text-align: center;
@@ -50,13 +50,8 @@
 }
 
 @media (min-width: 48rem) {
-  .actions {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: var(--nura-space-2);
-  }
-
   .actions a {
-    min-height: 5.25rem;
+    min-height: 5rem;
     font-size: var(--nura-font-size-sm);
   }
 }

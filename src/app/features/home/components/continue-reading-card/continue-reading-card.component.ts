@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { IonIcon } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { arrowForwardOutline, bookOutline } from 'ionicons/icons';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  inject,
+} from '@angular/core';
+import { Router } from '@angular/router';
 
-import { BadgeComponent } from '../../../../shared/components/badge/badge.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { CardComponent } from '../../../../shared/components/card/card.component';
 import { ReadingProgress } from '../../home.models';
 
@@ -12,13 +14,15 @@ import { ReadingProgress } from '../../home.models';
   selector: 'app-continue-reading-card',
   templateUrl: './continue-reading-card.component.html',
   styleUrl: './continue-reading-card.component.scss',
-  imports: [RouterLink, IonIcon, CardComponent, BadgeComponent],
+  imports: [CardComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContinueReadingCardComponent {
+  private readonly router = inject(Router);
+
   @Input({ required: true }) reading!: ReadingProgress;
 
-  constructor() {
-    addIcons({ arrowForwardOutline, bookOutline });
+  continueReading(): void {
+    void this.router.navigate(['/quran']);
   }
 }

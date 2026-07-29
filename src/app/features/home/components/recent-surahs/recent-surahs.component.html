@@ -4,33 +4,32 @@
     description="Continue where you left off"
   />
 
-  <div class="surahs">
+  <ol class="surahs">
     @for (surah of surahs; track surah.number) {
-      <a
-        routerLink="/quran"
-        [attr.aria-label]="'Open Surah ' + surah.name"
-      >
-        <app-card>
-          <div class="surah__top">
-            <app-badge tone="primary">{{ surah.number }}</app-badge>
-            <span class="surah__arabic" lang="ar" dir="rtl">
-              {{ surah.arabicName }}
+      <li>
+        <a
+          routerLink="/quran"
+          [attr.aria-label]="'Open Surah ' + surah.name"
+        >
+          <span class="surah__number" aria-hidden="true">
+            {{ surah.number }}
+          </span>
+          <span class="surah__body">
+            <span class="surah__names">
+              <strong>{{ surah.name }}</strong>
+              <span class="surah__arabic" lang="ar" dir="rtl">
+                {{ surah.arabicName }}
+              </span>
             </span>
-          </div>
-          <h3>{{ surah.name }}</h3>
-          <p>{{ surah.totalAyahs }} ayahs · Last read {{ surah.lastAyah }}</p>
-          <div
-            class="progress"
-            role="progressbar"
-            [attr.aria-label]="surah.name + ' reading progress'"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            [attr.aria-valuenow]="surah.progress"
-          >
-            <span [style.width.%]="surah.progress"></span>
-          </div>
-        </app-card>
-      </a>
+            <span class="surah__meta">
+              {{ surah.totalAyahs }} ayahs · Last read {{ surah.lastAyah }}
+            </span>
+          </span>
+          <span class="surah__progress" aria-hidden="true">
+            {{ surah.progress }}%
+          </span>
+        </a>
+      </li>
     }
-  </div>
+  </ol>
 </section>

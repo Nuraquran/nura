@@ -21,10 +21,8 @@ export const HOME_MOCK_DATA: HomeViewModel = {
     progress: 42,
   },
   quickActions: [
-    { label: 'Read Quran', icon: 'book-outline', route: '/quran' },
-    { label: 'Tafsir', icon: 'reader-outline', route: '/quran' },
+    { label: 'Read', icon: 'book-outline', route: '/quran' },
     { label: 'Audio', icon: 'headset-outline', route: '/listen' },
-    { label: 'Qibla', icon: 'compass-outline', route: '/more' },
     { label: 'Dua', icon: 'heart-outline', route: '/more' },
     { label: 'Bookmarks', icon: 'bookmark-outline', route: '/saved' },
   ],

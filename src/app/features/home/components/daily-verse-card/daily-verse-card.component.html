@@ -1,41 +1,10 @@
 <section aria-label="Daily verse">
-  <app-section-header title="A verse for today">
-    <app-badge tone="gold">
-      {{ verse.surahName }} · {{ verse.ayahNumber }}
-    </app-badge>
-  </app-section-header>
-
-  <app-card elevation="raised">
-    <blockquote>
-      <p class="arabic" lang="ar" dir="rtl">{{ verse.arabic }}</p>
-      <p class="translation">“{{ verse.translation }}”</p>
-      <footer>
-        <cite>{{ verse.surahName }}, {{ verse.ayahNumber }}</cite>
-        <span class="verse-actions">
-          <app-icon-button
-            [label]="bookmarked() ? 'Remove bookmark' : 'Bookmark verse'"
-            (pressed)="toggleBookmark()"
-          >
-            <ion-icon
-              [name]="bookmarked() ? 'bookmark' : 'bookmark-outline'"
-              aria-hidden="true"
-            />
-          </app-icon-button>
-          <app-icon-button
-            [label]="shareAcknowledged() ? 'Share selected' : 'Share verse'"
-            (pressed)="acknowledgeShare()"
-          >
-            <ion-icon
-              [name]="
-                shareAcknowledged()
-                  ? 'checkmark-outline'
-                  : 'share-social-outline'
-              "
-              aria-hidden="true"
-            />
-          </app-icon-button>
-        </span>
-      </footer>
-    </blockquote>
-  </app-card>
+  <app-section-header title="Verse of the day" />
+  <blockquote>
+    <p class="arabic" lang="ar" dir="rtl">{{ verse.arabic }}</p>
+    <p class="translation">“{{ verse.translation }}”</p>
+    <footer>
+      <cite>{{ verse.surahName }} · {{ verse.ayahNumber }}</cite>
+    </footer>
+  </blockquote>
 </section>
