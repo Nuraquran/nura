@@ -16,10 +16,9 @@ export const routes: Routes = [
       {
         path: 'home',
         loadComponent: () =>
-          import('./features/placeholder/placeholder.page').then(
-            (component) => component.PlaceholderPage,
+          import('./features/home/home.page').then(
+            (component) => component.HomePage,
           ),
-        data: { label: 'Home' },
       },
       {
         path: 'quran',

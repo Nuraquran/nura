@@ -4,10 +4,6 @@
   flex-direction: column;
 }
 
-app-header {
-  flex: none;
-}
-
 ion-tabs {
   position: relative;
   min-height: 0;
@@ -32,4 +28,8 @@ ion-tab-button {
 
 ion-icon {
   font-size: var(--nura-icon-lg);
+}
+
+ion-tab-button.tab-selected {
+  color: var(--nura-color-primary);
 }

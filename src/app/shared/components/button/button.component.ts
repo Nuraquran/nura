@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 export type ButtonVariant = 'primary' | 'secondary';
 export type ButtonType = 'button' | 'submit' | 'reset';
+export type ButtonSize = 'default' | 'compact';
 
 @Component({
   selector: 'app-button',
@@ -11,6 +12,7 @@ export type ButtonType = 'button' | 'submit' | 'reset';
 })
 export class ButtonComponent {
   @Input() variant: ButtonVariant = 'primary';
+  @Input() size: ButtonSize = 'default';
   @Input() type: ButtonType = 'button';
   @Input() disabled = false;
   @Input() fullWidth = false;

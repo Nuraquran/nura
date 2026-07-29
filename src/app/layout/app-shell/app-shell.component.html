@@ -1,11 +1,10 @@
-<app-header title="Nura" />
-
 <ion-tabs>
   <ion-tab-bar slot="bottom" aria-label="Primary navigation">
     @for (item of navigationItems; track item.route) {
       <ion-tab-button
         [tab]="item.route.slice(1)"
         [routerLink]="item.route"
+        routerLinkActive="tab-selected"
         [attr.aria-label]="item.label"
       >
         <ion-icon [name]="item.icon" aria-hidden="true" />

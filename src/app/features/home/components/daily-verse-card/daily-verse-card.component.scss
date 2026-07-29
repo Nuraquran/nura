@@ -1,0 +1,40 @@
+blockquote {
+  margin: 0;
+}
+
+.arabic {
+  margin: var(--nura-space-3) 0 var(--nura-space-5);
+  color: var(--nura-color-text);
+  font-family: var(--nura-font-family-arabic);
+  font-size: var(--nura-font-size-arabic);
+  font-weight: var(--nura-font-weight-regular);
+  line-height: 2;
+  text-align: right;
+}
+
+.translation {
+  margin: 0;
+  color: var(--nura-color-text);
+  font-size: var(--nura-font-size-lg);
+  line-height: var(--nura-line-height-normal);
+}
+
+footer {
+  display: flex;
+  gap: var(--nura-space-4);
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--nura-space-5);
+}
+
+cite {
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-sm);
+  font-style: normal;
+}
+
+.verse-actions {
+  display: flex;
+  flex: none;
+  gap: var(--nura-space-1);
+}

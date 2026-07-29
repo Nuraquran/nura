@@ -1,0 +1,62 @@
+.greeting {
+  display: flex;
+  gap: var(--nura-space-4);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.greeting__identity {
+  min-width: 0;
+}
+
+.wordmark {
+  display: block;
+  margin-bottom: var(--nura-space-3);
+  color: var(--nura-color-primary);
+  font-size: var(--nura-font-size-lg);
+  font-weight: var(--nura-font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+p,
+h1 {
+  margin: 0;
+}
+
+p {
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-sm);
+}
+
+h1 {
+  margin-top: var(--nura-space-1);
+  font-size: var(--nura-font-size-2xl);
+  line-height: var(--nura-line-height-tight);
+}
+
+.greeting__actions {
+  display: flex;
+  flex: none;
+  gap: var(--nura-space-1);
+  align-items: center;
+}
+
+.avatar {
+  display: grid;
+  width: var(--nura-touch-target);
+  height: var(--nura-touch-target);
+  margin-left: var(--nura-space-1);
+  place-items: center;
+  color: var(--nura-color-primary-contrast);
+  background: var(--nura-color-primary);
+  border-radius: var(--nura-radius-full);
+  font-size: var(--nura-font-size-sm);
+  font-weight: var(--nura-font-weight-semibold);
+}
+
+@media (max-width: 22rem) {
+  .greeting__actions app-icon-button:first-child {
+    display: none;
+  }
+}

@@ -1,0 +1,37 @@
+<a class="reading-link" routerLink="/quran" aria-label="Resume reading">
+  <app-card>
+    <div class="reading">
+      <span class="reading__icon" aria-hidden="true">
+        <ion-icon name="book-outline" />
+      </span>
+
+      <div class="reading__body">
+        <div class="reading__eyebrow">
+          <app-badge tone="primary">Continue reading</app-badge>
+          <span>Juz {{ reading.juz }}</span>
+        </div>
+        <h2>{{ reading.surahName }}</h2>
+        <p>
+          Surah {{ reading.surahNumber }} · Last read ayah
+          {{ reading.lastAyah }}
+        </p>
+
+        <div
+          class="progress"
+          role="progressbar"
+          aria-label="Reading progress"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [attr.aria-valuenow]="reading.progress"
+        >
+          <span [style.width.%]="reading.progress"></span>
+        </div>
+
+        <span class="resume">
+          Resume reading
+          <ion-icon name="arrow-forward-outline" aria-hidden="true" />
+        </span>
+      </div>
+    </div>
+  </app-card>
+</a>

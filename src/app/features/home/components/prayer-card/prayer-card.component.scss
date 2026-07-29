@@ -1,0 +1,83 @@
+:host {
+  display: block;
+}
+
+.prayer {
+  position: relative;
+  overflow: hidden;
+}
+
+.prayer::after {
+  position: absolute;
+  top: -4.5rem;
+  right: -3rem;
+  width: 11rem;
+  height: 11rem;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  border-radius: 38% 62% 58% 42%;
+  content: "";
+  pointer-events: none;
+  transform: rotate(18deg);
+}
+
+.prayer__top,
+.prayer__footer,
+.prayer__time {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: var(--nura-space-4);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.prayer__top {
+  color: color-mix(in srgb, currentColor 76%, transparent);
+  font-size: var(--nura-font-size-xs);
+}
+
+.prayer__time {
+  margin-block: var(--nura-space-6);
+  align-items: end;
+}
+
+h2,
+p {
+  margin: 0;
+}
+
+h2 {
+  font-size: var(--nura-font-size-3xl);
+  line-height: var(--nura-line-height-tight);
+}
+
+p {
+  margin-top: var(--nura-space-1);
+  color: color-mix(in srgb, currentColor 74%, transparent);
+}
+
+strong {
+  font-size: var(--nura-font-size-2xl);
+  font-weight: var(--nura-font-weight-medium);
+  letter-spacing: -0.03em;
+}
+
+.location {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  color: color-mix(in srgb, currentColor 78%, transparent);
+  font-size: var(--nura-font-size-sm);
+}
+
+.location ion-icon {
+  flex: none;
+  margin-right: var(--nura-space-1);
+}
+
+@media (max-width: 30rem) {
+  .prayer__footer {
+    align-items: start;
+    flex-direction: column;
+  }
+}

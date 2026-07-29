@@ -1,0 +1,58 @@
+.khatam__summary,
+.khatam__footer {
+  display: flex;
+  gap: var(--nura-space-4);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.khatam__summary div {
+  display: flex;
+  align-items: baseline;
+}
+
+strong {
+  color: var(--nura-color-primary);
+  font-size: var(--nura-font-size-3xl);
+  letter-spacing: -0.04em;
+}
+
+.khatam__summary span {
+  margin-left: var(--nura-space-2);
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-sm);
+}
+
+p {
+  margin: 0;
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-sm);
+  text-align: right;
+}
+
+.progress {
+  height: 0.5rem;
+  overflow: hidden;
+  margin-block: var(--nura-space-5);
+  background: var(--nura-color-surface-subtle);
+  border-radius: var(--nura-radius-full);
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--nura-color-primary);
+  border-radius: inherit;
+}
+
+.khatam__footer > span {
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-sm);
+}
+
+@media (max-width: 24rem) {
+  .khatam__footer {
+    align-items: start;
+    flex-direction: column;
+  }
+}

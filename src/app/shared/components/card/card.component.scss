@@ -2,11 +2,17 @@
   padding: var(--nura-space-5);
   background: var(--nura-color-surface);
   border: 1px solid var(--nura-color-border);
-  border-radius: var(--nura-radius-lg);
+  border-radius: var(--nura-radius-xl);
   box-shadow: var(--nura-shadow-sm);
 }
 
 .card--raised {
   border-color: transparent;
   box-shadow: var(--nura-shadow-md);
+}
+
+.card--primary {
+  color: var(--nura-color-primary-contrast);
+  background: var(--nura-color-primary);
+  border-color: transparent;
 }

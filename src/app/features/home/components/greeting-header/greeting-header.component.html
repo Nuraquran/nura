@@ -1,0 +1,25 @@
+<header class="greeting">
+  <div class="greeting__identity">
+    <span class="wordmark">Nura</span>
+    <p>{{ greeting }}</p>
+    <h1>{{ user.name }}</h1>
+  </div>
+
+  <div class="greeting__actions">
+    <app-icon-button
+      [label]="resolvedTheme() === 'dark' ? 'Use light theme' : 'Use dark theme'"
+      (pressed)="toggleTheme()"
+    >
+      <ion-icon
+        [name]="resolvedTheme() === 'dark' ? 'sunny-outline' : 'moon-outline'"
+        aria-hidden="true"
+      />
+    </app-icon-button>
+    <app-icon-button label="Notifications">
+      <ion-icon name="notifications-outline" aria-hidden="true" />
+    </app-icon-button>
+    <span class="avatar" [attr.aria-label]="'Profile for ' + user.name">
+      {{ user.initials }}
+    </span>
+  </div>
+</header>

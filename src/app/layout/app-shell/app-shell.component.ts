@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   IonIcon,
   IonLabel,
@@ -17,20 +17,18 @@ import {
 } from 'ionicons/icons';
 
 import { PRIMARY_NAVIGATION } from '../../mock-data/navigation.mock';
-import { AppHeaderComponent } from '../../shared/components/app-header/app-header.component';
-
 @Component({
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
   styleUrl: './app-shell.component.scss',
   imports: [
     RouterLink,
+    RouterLinkActive,
     IonTabs,
     IonTabBar,
     IonTabButton,
     IonIcon,
     IonLabel,
-    AppHeaderComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,0 +1,26 @@
+ion-content {
+  --background: var(--nura-color-background);
+}
+
+.home,
+.home__primary,
+.home__secondary {
+  display: grid;
+  gap: var(--nura-space-8);
+}
+
+.home {
+  padding-bottom: var(--nura-space-6);
+}
+
+.home__dashboard {
+  display: grid;
+  gap: var(--nura-space-8);
+}
+
+@media (min-width: 64rem) {
+  .home__dashboard {
+    grid-template-columns: minmax(0, 1.08fr) minmax(22rem, 0.92fr);
+    align-items: start;
+  }
+}

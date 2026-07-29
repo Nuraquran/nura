@@ -1,3 +1,7 @@
-<section class="card" [class.card--raised]="elevation === 'raised'">
+<section
+  class="card"
+  [class.card--raised]="elevation === 'raised'"
+  [class.card--primary]="tone === 'primary'"
+>
   <ng-content />
 </section>

@@ -1,0 +1,13 @@
+<section aria-label="Quick actions">
+  <app-section-header title="Explore" />
+  <nav class="actions" aria-label="Quick actions">
+    @for (action of actions; track action.label) {
+      <a [routerLink]="action.route">
+        <span class="actions__icon" aria-hidden="true">
+          <ion-icon [name]="action.icon" />
+        </span>
+        <span>{{ action.label }}</span>
+      </a>
+    }
+  </nav>
+</section>

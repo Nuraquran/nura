@@ -1,0 +1,30 @@
+<section aria-label="Khatam progress">
+  <app-section-header title="Khatam journey" />
+  <app-card>
+    <div class="khatam__summary">
+      <div>
+        <strong>{{ progress.percentage }}%</strong>
+        <span>completed</span>
+      </div>
+      <p>{{ progress.target }}</p>
+    </div>
+
+    <div
+      class="progress"
+      role="progressbar"
+      aria-label="Khatam completion"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [attr.aria-valuenow]="progress.percentage"
+    >
+      <span [style.width.%]="progress.percentage"></span>
+    </div>
+
+    <div class="khatam__footer">
+      <span>
+        {{ progress.completedPages }} of {{ progress.totalPages }} pages
+      </span>
+      <app-button variant="secondary" size="compact">Continue plan</app-button>
+    </div>
+  </app-card>
+</section>

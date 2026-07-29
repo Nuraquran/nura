@@ -1,0 +1,36 @@
+<section aria-label="Recently opened surahs">
+  <app-section-header
+    title="Recently opened"
+    description="Continue where you left off"
+  />
+
+  <div class="surahs">
+    @for (surah of surahs; track surah.number) {
+      <a
+        routerLink="/quran"
+        [attr.aria-label]="'Open Surah ' + surah.name"
+      >
+        <app-card>
+          <div class="surah__top">
+            <app-badge tone="primary">{{ surah.number }}</app-badge>
+            <span class="surah__arabic" lang="ar" dir="rtl">
+              {{ surah.arabicName }}
+            </span>
+          </div>
+          <h3>{{ surah.name }}</h3>
+          <p>{{ surah.totalAyahs }} ayahs · Last read {{ surah.lastAyah }}</p>
+          <div
+            class="progress"
+            role="progressbar"
+            [attr.aria-label]="surah.name + ' reading progress'"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [attr.aria-valuenow]="surah.progress"
+          >
+            <span [style.width.%]="surah.progress"></span>
+          </div>
+        </app-card>
+      </a>
+    }
+  </div>
+</section>
