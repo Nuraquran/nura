@@ -1,0 +1,76 @@
+<app-bottom-sheet
+  title="Reading settings"
+  [open]="open"
+  [initialBreakpoint]="0.85"
+  [breakpoints]="sheetBreakpoints"
+  (openChange)="openChange.emit($event)"
+>
+  <form class="settings">
+    <fieldset>
+      <legend>Arabic font size</legend>
+      <div class="segmented-control">
+        @for (size of fontScaleOptions; track size) {
+          <label>
+            <input
+              type="radio"
+              name="arabic-font-size"
+              [value]="size"
+              [checked]="preferences.arabicFontSize === size"
+              (change)="updateArabicFontSize($event)"
+            />
+            <span>{{ size }}</span>
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Translation font size</legend>
+      <div class="segmented-control">
+        @for (size of fontScaleOptions; track size) {
+          <label>
+            <input
+              type="radio"
+              name="translation-font-size"
+              [value]="size"
+              [checked]="preferences.translationFontSize === size"
+              (change)="updateTranslationFontSize($event)"
+            />
+            <span>{{ size }}</span>
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    <label class="toggle-row">
+      <span>
+        <strong>Show translation</strong>
+        <small>Display the meaning below each ayah</small>
+      </span>
+      <input
+        type="checkbox"
+        role="switch"
+        [checked]="preferences.showTranslation"
+        (change)="updateTranslationVisibility($event)"
+      />
+    </label>
+
+    <fieldset>
+      <legend>Appearance</legend>
+      <div class="theme-options">
+        @for (theme of themeOptions; track theme) {
+          <label>
+            <input
+              type="radio"
+              name="reader-theme"
+              [value]="theme"
+              [checked]="preferences.theme === theme"
+              (change)="updateTheme(theme)"
+            />
+            <span>{{ theme }}</span>
+          </label>
+        }
+      </div>
+    </fieldset>
+  </form>
+</app-bottom-sheet>

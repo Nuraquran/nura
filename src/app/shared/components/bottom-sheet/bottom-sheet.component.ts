@@ -33,6 +33,8 @@ import {
 export class BottomSheetComponent {
   @Input({ required: true }) title = '';
   @Input() open = false;
+  @Input() initialBreakpoint = 0.5;
+  @Input() breakpoints: number[] = [0, 0.5, 0.9];
   @Output() readonly openChange = new EventEmitter<boolean>();
 
   close(): void {

@@ -2,6 +2,13 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: 'quran',
+    loadComponent: () =>
+      import('./features/quran-reader/reader.page').then(
+        (component) => component.ReaderPage,
+      ),
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./layout/app-shell/app-shell.component').then(
@@ -19,14 +26,6 @@ export const routes: Routes = [
           import('./features/home/home.page').then(
             (component) => component.HomePage,
           ),
-      },
-      {
-        path: 'quran',
-        loadComponent: () =>
-          import('./features/placeholder/placeholder.page').then(
-            (component) => component.PlaceholderPage,
-          ),
-        data: { label: 'Quran' },
       },
       {
         path: 'listen',

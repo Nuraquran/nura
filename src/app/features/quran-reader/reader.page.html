@@ -1,0 +1,109 @@
+<ion-header class="reader-header ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home" aria-label="Back to Home">
+        <ion-icon slot="icon-only" name="arrow-back-outline" aria-hidden="true" />
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>{{ surah.name }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button disabled aria-label="More options">
+        <ion-icon
+          slot="icon-only"
+          name="ellipsis-horizontal"
+          aria-hidden="true"
+        />
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <main class="reader-content">
+    <section class="surah-info" aria-labelledby="surah-title">
+      <div>
+        <p>Surah {{ surah.number }}</p>
+        <h1 id="surah-title">{{ surah.name }}</h1>
+      </div>
+      <div class="surah-info__meta">
+        <span class="surah-info__arabic" lang="ar" dir="rtl">
+          {{ surah.arabicName }}
+        </span>
+        <span>{{ surah.totalAyahs }} ayahs · {{ surah.revelationPlace }}</span>
+      </div>
+    </section>
+
+    <app-ayah-list
+      [ayahs]="surah.ayahs"
+      [preferences]="preferences()"
+    />
+  </main>
+</ion-content>
+
+<ion-footer class="reader-footer ion-no-border">
+  <ion-toolbar>
+    <nav class="reading-toolbar" aria-label="Reading controls">
+      <button
+        type="button"
+        [attr.aria-label]="isPlaying() ? 'Pause recitation' : 'Play recitation'"
+        [attr.aria-pressed]="isPlaying()"
+        (click)="togglePlayback()"
+      >
+        <ion-icon
+          [name]="isPlaying() ? 'pause-outline' : 'play-outline'"
+          aria-hidden="true"
+        />
+        <span>{{ isPlaying() ? 'Pause' : 'Play' }}</span>
+      </button>
+
+      <button
+        type="button"
+        [attr.aria-label]="
+          isBookmarked() ? 'Remove surah bookmark' : 'Bookmark surah'
+        "
+        [attr.aria-pressed]="isBookmarked()"
+        (click)="toggleBookmark()"
+      >
+        <ion-icon
+          [name]="isBookmarked() ? 'bookmark' : 'bookmark-outline'"
+          aria-hidden="true"
+        />
+        <span>Bookmark</span>
+      </button>
+
+      <button
+        type="button"
+        [attr.aria-label]="
+          shareAcknowledged() ? 'Share selected' : 'Share surah'
+        "
+        (click)="acknowledgeShare()"
+      >
+        <ion-icon
+          [name]="
+            shareAcknowledged() ? 'checkmark-outline' : 'share-social-outline'
+          "
+          aria-hidden="true"
+        />
+        <span>Share</span>
+      </button>
+
+      <button
+        type="button"
+        aria-label="Open reading settings"
+        (click)="settingsOpen.set(true)"
+      >
+        <ion-icon name="options-outline" aria-hidden="true" />
+        <span>Settings</span>
+      </button>
+    </nav>
+  </ion-toolbar>
+</ion-footer>
+
+<app-reading-settings
+  [open]="settingsOpen()"
+  [preferences]="preferences()"
+  (openChange)="settingsOpen.set($event)"
+  (preferencesChange)="updatePreferences($event)"
+/>

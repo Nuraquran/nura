@@ -1,0 +1,98 @@
+.settings {
+  display: grid;
+  gap: var(--nura-space-6);
+  padding-bottom: calc(var(--nura-space-6) + var(--ion-safe-area-bottom, 0px));
+}
+
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+legend {
+  margin-bottom: var(--nura-space-3);
+  color: var(--nura-color-text);
+  font-size: var(--nura-font-size-sm);
+  font-weight: var(--nura-font-weight-semibold);
+}
+
+.segmented-control,
+.theme-options {
+  display: grid;
+  padding: var(--nura-space-1);
+  background: var(--nura-color-surface-subtle);
+  border-radius: var(--nura-radius-md);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.segmented-control label,
+.theme-options label {
+  position: relative;
+  min-width: 0;
+}
+
+.segmented-control input,
+.theme-options input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segmented-control span,
+.theme-options span {
+  display: grid;
+  min-height: var(--nura-touch-target);
+  padding-inline: var(--nura-space-2);
+  place-items: center;
+  color: var(--nura-color-text-muted);
+  border-radius: var(--nura-radius-sm);
+  font-size: var(--nura-font-size-sm);
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.segmented-control input:checked + span,
+.theme-options input:checked + span {
+  color: var(--nura-color-text);
+  background: var(--nura-color-surface);
+  box-shadow: var(--nura-shadow-sm);
+}
+
+.segmented-control input:focus-visible + span,
+.theme-options input:focus-visible + span {
+  outline: 3px solid
+    color-mix(in srgb, var(--nura-color-primary) 45%, transparent);
+  outline-offset: 1px;
+}
+
+.toggle-row {
+  display: flex;
+  min-height: var(--nura-touch-target);
+  gap: var(--nura-space-4);
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.toggle-row span {
+  display: grid;
+  gap: var(--nura-space-1);
+}
+
+.toggle-row strong {
+  font-size: var(--nura-font-size-sm);
+}
+
+.toggle-row small {
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-xs);
+}
+
+.toggle-row input {
+  width: 2.75rem;
+  height: 1.5rem;
+  accent-color: var(--nura-color-primary);
+  cursor: pointer;
+}

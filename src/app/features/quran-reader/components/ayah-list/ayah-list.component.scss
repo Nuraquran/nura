@@ -1,0 +1,151 @@
+.ayah-list {
+  width: min(100%, 42rem);
+  margin-inline: auto;
+}
+
+.ayah {
+  padding-block: var(--nura-space-6);
+}
+
+.ayah + .ayah {
+  border-top: 1px solid
+    color-mix(in srgb, var(--nura-color-border) 54%, transparent);
+}
+
+.ayah__selectable {
+  position: relative;
+  min-width: 0;
+  padding: var(--nura-space-2);
+  border-radius: var(--nura-radius-xl);
+  cursor: pointer;
+  transition: background-color var(--nura-duration-normal)
+    var(--nura-easing-standard);
+}
+
+.ayah__selectable:hover,
+.ayah--selected .ayah__selectable {
+  background: color-mix(
+    in srgb,
+    var(--nura-color-primary) 7%,
+    transparent
+  );
+}
+
+.ayah__selectable:focus-visible {
+  outline: 3px solid
+    color-mix(in srgb, var(--nura-color-primary) 45%, transparent);
+  outline-offset: 2px;
+}
+
+.ayah__number {
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-bottom: var(--nura-space-4);
+  place-items: center;
+  color: var(--nura-color-primary);
+  background: color-mix(in srgb, var(--nura-color-primary) 9%, transparent);
+  border-radius: var(--nura-radius-full);
+  font-size: var(--nura-font-size-xs);
+  font-weight: var(--nura-font-weight-semibold);
+}
+
+.ayah__arabic,
+.ayah__translation {
+  margin: 0;
+}
+
+.ayah__arabic {
+  color: var(--nura-color-text);
+  font-family: var(--nura-font-family-arabic);
+  font-size: 2rem;
+  line-height: 2.15;
+  text-align: right;
+}
+
+.ayah__arabic--small {
+  font-size: 1.75rem;
+}
+
+.ayah__arabic--large {
+  font-size: 2.25rem;
+}
+
+.ayah__translation {
+  margin-top: var(--nura-space-4);
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-md);
+  line-height: 1.7;
+}
+
+.ayah__translation--small {
+  font-size: var(--nura-font-size-sm);
+}
+
+.ayah__translation--large {
+  font-size: var(--nura-font-size-lg);
+}
+
+.ayah__actions {
+  display: flex;
+  gap: var(--nura-space-2);
+  padding: var(--nura-space-2);
+  animation: reader-actions-in var(--nura-duration-normal)
+    var(--nura-easing-standard);
+}
+
+.ayah__actions button {
+  min-width: var(--nura-touch-target);
+  min-height: var(--nura-touch-target);
+  padding-inline: var(--nura-space-3);
+  color: var(--nura-color-primary);
+  background: transparent;
+  border: 0;
+  border-radius: var(--nura-radius-full);
+  font-size: var(--nura-font-size-sm);
+  font-weight: var(--nura-font-weight-semibold);
+  cursor: pointer;
+}
+
+.ayah__actions button:hover {
+  background: var(--nura-color-surface-subtle);
+}
+
+.action-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@keyframes reader-actions-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+}
+
+@media (max-width: 22rem) {
+  .ayah {
+    padding-block: var(--nura-space-5);
+  }
+
+  .ayah__arabic {
+    font-size: 1.875rem;
+  }
+
+  .ayah__arabic--small {
+    font-size: 1.625rem;
+  }
+
+  .ayah__arabic--large {
+    font-size: 2.125rem;
+  }
+
+  .ayah__actions {
+    gap: 0;
+  }
+}
