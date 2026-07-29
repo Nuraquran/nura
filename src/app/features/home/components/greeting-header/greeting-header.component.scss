@@ -11,9 +11,9 @@
 
 .wordmark {
   display: block;
-  margin-bottom: var(--nura-space-3);
+  margin-bottom: var(--nura-space-1);
   color: var(--nura-color-primary);
-  font-size: var(--nura-font-size-lg);
+  font-size: var(--nura-font-size-sm);
   font-weight: var(--nura-font-weight-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -31,7 +31,7 @@ p {
 
 h1 {
   margin-top: var(--nura-space-1);
-  font-size: var(--nura-font-size-2xl);
+  font-size: var(--nura-font-size-xl);
   line-height: var(--nura-line-height-tight);
 }
 
@@ -58,5 +58,16 @@ h1 {
 @media (max-width: 22rem) {
   .greeting__actions app-icon-button:first-child {
     display: none;
+  }
+}
+
+@media (min-width: 48rem) {
+  .wordmark {
+    margin-bottom: var(--nura-space-2);
+    font-size: var(--nura-font-size-md);
+  }
+
+  h1 {
+    font-size: var(--nura-font-size-2xl);
   }
 }

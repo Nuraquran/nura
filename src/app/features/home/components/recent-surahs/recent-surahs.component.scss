@@ -16,6 +16,7 @@
 }
 
 .surahs a {
+  --nura-card-padding: var(--nura-space-4);
   color: inherit;
   text-decoration: none;
   border-radius: var(--nura-radius-xl);
@@ -40,7 +41,7 @@ p {
 }
 
 h3 {
-  margin-top: var(--nura-space-4);
+  margin-top: var(--nura-space-3);
   font-size: var(--nura-font-size-lg);
 }
 
@@ -53,7 +54,7 @@ p {
 .progress {
   height: 0.3rem;
   overflow: hidden;
-  margin-top: var(--nura-space-4);
+  margin-top: var(--nura-space-3);
   background: var(--nura-color-surface-subtle);
   border-radius: var(--nura-radius-full);
 }
@@ -70,5 +71,9 @@ p {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-auto-flow: initial;
     overflow: visible;
+  }
+
+  .surahs a {
+    --nura-card-padding: var(--nura-space-5);
   }
 }

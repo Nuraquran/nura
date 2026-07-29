@@ -6,11 +6,13 @@
   width: min(100%, var(--nura-content-max-width));
   min-height: 100%;
   margin-inline: auto;
-  padding: var(--nura-space-6) var(--nura-space-5) var(--nura-space-12);
+  padding: var(--nura-space-4) var(--nura-space-4) var(--nura-space-10);
 }
 
 @media (min-width: 48rem) {
   .page-container {
+    padding-top: var(--nura-space-6);
     padding-inline: var(--nura-space-8);
+    padding-bottom: var(--nura-space-12);
   }
 }

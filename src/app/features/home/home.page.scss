@@ -6,16 +6,25 @@ ion-content {
 .home__primary,
 .home__secondary {
   display: grid;
-  gap: var(--nura-space-8);
+  gap: var(--nura-space-6);
 }
 
 .home {
-  padding-bottom: var(--nura-space-6);
+  padding-bottom: var(--nura-space-4);
 }
 
 .home__dashboard {
   display: grid;
-  gap: var(--nura-space-8);
+  gap: var(--nura-space-6);
+}
+
+@media (min-width: 48rem) {
+  .home,
+  .home__primary,
+  .home__secondary,
+  .home__dashboard {
+    gap: var(--nura-space-8);
+  }
 }
 
 @media (min-width: 64rem) {

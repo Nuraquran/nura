@@ -1,4 +1,8 @@
 .reading-link {
+  --nura-card-padding: var(--nura-space-4);
+}
+
+.reading-link {
   display: block;
   color: inherit;
   text-decoration: none;
@@ -46,8 +50,8 @@ p {
 }
 
 h2 {
-  margin-top: var(--nura-space-3);
-  font-size: var(--nura-font-size-xl);
+  margin-top: var(--nura-space-2);
+  font-size: var(--nura-font-size-lg);
 }
 
 p {
@@ -59,7 +63,7 @@ p {
 .progress {
   height: 0.35rem;
   overflow: hidden;
-  margin-block: var(--nura-space-4);
+  margin-block: var(--nura-space-3);
   background: var(--nura-color-surface-subtle);
   border-radius: var(--nura-radius-full);
 }
@@ -82,4 +86,15 @@ p {
 
 .resume ion-icon {
   margin-left: var(--nura-space-1);
+}
+
+@media (min-width: 48rem) {
+  .reading-link {
+    --nura-card-padding: var(--nura-space-5);
+  }
+
+  h2 {
+    margin-top: var(--nura-space-3);
+    font-size: var(--nura-font-size-xl);
+  }
 }

@@ -1,5 +1,6 @@
 :host {
   display: block;
+  --nura-card-padding: var(--nura-space-4);
 }
 
 .prayer {
@@ -37,7 +38,7 @@
 }
 
 .prayer__time {
-  margin-block: var(--nura-space-6);
+  margin-block: var(--nura-space-3);
   align-items: end;
 }
 
@@ -47,7 +48,7 @@ p {
 }
 
 h2 {
-  font-size: var(--nura-font-size-3xl);
+  font-size: var(--nura-font-size-2xl);
   line-height: var(--nura-line-height-tight);
 }
 
@@ -57,7 +58,7 @@ p {
 }
 
 strong {
-  font-size: var(--nura-font-size-2xl);
+  font-size: var(--nura-font-size-xl);
   font-weight: var(--nura-font-weight-medium);
   letter-spacing: -0.03em;
 }
@@ -78,6 +79,25 @@ strong {
 @media (max-width: 30rem) {
   .prayer__footer {
     align-items: start;
+    gap: var(--nura-space-2);
     flex-direction: column;
+  }
+}
+
+@media (min-width: 48rem) {
+  :host {
+    --nura-card-padding: var(--nura-space-5);
+  }
+
+  .prayer__time {
+    margin-block: var(--nura-space-5);
+  }
+
+  h2 {
+    font-size: var(--nura-font-size-3xl);
+  }
+
+  strong {
+    font-size: var(--nura-font-size-2xl);
   }
 }
