@@ -1,15 +1,16 @@
 <section class="ayah-list" aria-label="Ayahs">
   @for (ayah of ayahs; track trackByAyahId($index, ayah)) {
     <article
+      [attr.id]="'ayah-' + ayah.number"
       class="ayah"
-      [class.ayah--selected]="selectedAyahId() === ayah.id"
-      [class.ayah--bookmarked]="isBookmarked(ayah.id)"
+      [class.ayah--selected]="selectedAyahId === ayah.id"
+      [class.ayah--bookmarked]="isBookmarked(ayah.number)"
     >
       <div
         class="ayah__selectable"
         role="button"
         tabindex="0"
-        [attr.aria-pressed]="selectedAyahId() === ayah.id"
+        [attr.aria-pressed]="selectedAyahId === ayah.id"
         [attr.aria-label]="'Select ayah ' + ayah.number"
         (click)="toggleSelection(ayah)"
         (keydown)="handleSelectionKey($event, ayah)"
@@ -44,7 +45,7 @@
         }
       </div>
 
-      @if (selectedAyahId() === ayah.id) {
+      @if (selectedAyahId === ayah.id) {
         <div class="ayah__actions" aria-label="Selected ayah actions">
           <button
             type="button"
@@ -56,7 +57,7 @@
             type="button"
             (click)="requestAction('bookmark', ayah)"
           >
-            {{ isBookmarked(ayah.id) ? 'Remove bookmark' : 'Bookmark' }}
+            {{ isBookmarked(ayah.number) ? 'Remove bookmark' : 'Bookmark' }}
           </button>
           <button
             type="button"

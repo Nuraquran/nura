@@ -24,7 +24,7 @@ export const HOME_MOCK_DATA: HomeViewModel = {
     { label: 'Read', icon: 'book-outline', route: '/quran' },
     { label: 'Audio', icon: 'headset-outline', route: '/listen' },
     { label: 'Dua', icon: 'heart-outline', route: '/more' },
-    { label: 'Bookmarks', icon: 'bookmark-outline', route: '/saved' },
+    { label: 'Bookmarks', icon: 'bookmark-outline', route: '/bookmarks' },
   ],
   dailyVerse: {
     arabic: 'وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ',

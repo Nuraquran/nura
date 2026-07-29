@@ -1,11 +1,13 @@
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  afterNextRender,
   computed,
   inject,
   signal,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   IonButton,
   IonButtons,
@@ -27,6 +29,7 @@ import {
   shareSocialOutline,
 } from 'ionicons/icons';
 
+import { BookmarkService } from '../../core/bookmarks/bookmark.service';
 import { ThemeService } from '../../core/theme/theme.service';
 import { AyahListComponent } from './components/ayah-list/ayah-list.component';
 import { ReadingSettingsComponent } from './components/reading-settings/reading-settings.component';
@@ -59,11 +62,13 @@ import {
 })
 export class ReaderPage {
   private readonly themeService = inject(ThemeService);
+  private readonly bookmarkService = inject(BookmarkService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly document = inject(DOCUMENT);
 
   readonly surah = READER_MOCK_DATA;
   readonly settingsOpen = signal(false);
-  readonly selectedAyah = signal<Ayah | null>(null);
-  readonly bookmarkedAyahIds = signal<readonly number[]>([]);
+  readonly selectedAyah = signal<Ayah | null>(this.getInitialAyah());
   readonly toastMessage = signal('');
   readonly toastOpen = signal(false);
   readonly preferences = signal<ReadingPreferences>({
@@ -75,9 +80,18 @@ export class ReaderPage {
   readonly selectedAyahBookmarked = computed(() => {
     const selectedAyah = this.selectedAyah();
     return selectedAyah
-      ? this.bookmarkedAyahIds().includes(selectedAyah.id)
+      ? this.bookmarkService.isBookmarked(
+          this.surah.number,
+          selectedAyah.number,
+        )
       : false;
   });
+  readonly bookmarkedAyahNumbers = computed(() =>
+    this.bookmarkService
+      .bookmarks()
+      .filter((bookmark) => bookmark.surahNumber === this.surah.number)
+      .map((bookmark) => bookmark.ayahNumber),
+  );
 
   constructor() {
     addIcons({
@@ -87,6 +101,15 @@ export class ReaderPage {
       optionsOutline,
       playOutline,
       shareSocialOutline,
+    });
+
+    afterNextRender(() => {
+      const selectedAyah = this.selectedAyah();
+      if (selectedAyah) {
+        this.document
+          .getElementById(`ayah-${selectedAyah.number}`)
+          ?.scrollIntoView({ block: 'center' });
+      }
     });
   }
 
@@ -103,17 +126,8 @@ export class ReaderPage {
       return;
     }
 
-    const isBookmarked = this.bookmarkedAyahIds().includes(ayah.id);
-    this.bookmarkedAyahIds.update((ids) =>
-      isBookmarked
-        ? ids.filter((id) => id !== ayah.id)
-        : [...ids, ayah.id],
-    );
-    this.showToast(
-      isBookmarked
-        ? `Bookmark removed from ayah ${ayah.number}.`
-        : `Ayah ${ayah.number} bookmarked for this session.`,
-    );
+    const result = this.bookmarkService.toggle(this.surah.number, ayah.number);
+    this.showToast(result === 'saved' ? 'Bookmark saved' : 'Bookmark removed');
   }
 
   async shareReading(ayah: Ayah | null = this.selectedAyah()): Promise<void> {
@@ -173,5 +187,17 @@ export class ReaderPage {
   private showToast(message: string): void {
     this.toastMessage.set(message);
     this.toastOpen.set(true);
+  }
+
+  private getInitialAyah(): Ayah | null {
+    const ayahNumber = Number(this.route.snapshot.queryParamMap.get('ayah'));
+
+    if (!Number.isInteger(ayahNumber) || ayahNumber < 1) {
+      return null;
+    }
+
+    return (
+      this.surah.ayahs.find((ayah) => ayah.number === ayahNumber) ?? null
+    );
   }
 }

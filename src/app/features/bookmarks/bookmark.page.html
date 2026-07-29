@@ -1,0 +1,69 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="" aria-label="Go back" />
+    </ion-buttons>
+    <ion-title>Bookmarks</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-page-container>
+    <section class="bookmarks" aria-labelledby="bookmarks-title">
+      <h1 id="bookmarks-title" class="visually-hidden">Saved Quran verses</h1>
+
+      @if (bookmarkItems().length) {
+        <ol>
+          @for (
+            item of bookmarkItems();
+            track trackByBookmarkId($index, item)
+          ) {
+            <li>
+              <a
+                [routerLink]="['/quran', item.bookmark.surahNumber]"
+                [queryParams]="{ ayah: item.bookmark.ayahNumber }"
+                [attr.aria-label]="
+                  'Open ' +
+                  item.surahName +
+                  ', ayah ' +
+                  item.bookmark.ayahNumber
+                "
+              >
+                <span>
+                  <strong>{{ item.surahName }}</strong>
+                  <small>
+                    Ayah {{ item.bookmark.ayahNumber }} · {{ item.dateLabel }}
+                  </small>
+                </span>
+              </a>
+
+              <ion-button
+                fill="clear"
+                color="medium"
+                [attr.aria-label]="
+                  'Remove bookmark for ' +
+                  item.surahName +
+                  ', ayah ' +
+                  item.bookmark.ayahNumber
+                "
+                (click)="removeBookmark(item.bookmark.id)"
+              >
+                <ion-icon
+                  slot="icon-only"
+                  name="trash-outline"
+                  aria-hidden="true"
+                />
+              </ion-button>
+            </li>
+          }
+        </ol>
+      } @else {
+        <app-empty-state
+          icon="bookmark-outline"
+          title="No bookmarks yet"
+          message="Save verses while reading to access them later."
+        />
+      }
+    </section>
+  </app-page-container>
+</ion-content>

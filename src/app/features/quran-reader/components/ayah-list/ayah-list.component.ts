@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   Output,
-  signal,
 } from '@angular/core';
 
 import {
@@ -23,20 +22,18 @@ import {
 export class AyahListComponent {
   @Input({ required: true }) ayahs: readonly Ayah[] = [];
   @Input({ required: true }) preferences!: ReadingPreferences;
-  @Input() bookmarkedAyahIds: readonly number[] = [];
+  @Input() selectedAyahId: number | null = null;
+  @Input() bookmarkedAyahNumbers: readonly number[] = [];
   @Output() readonly selectedAyahChange = new EventEmitter<Ayah | null>();
   @Output() readonly actionRequested =
     new EventEmitter<AyahActionRequest>();
-
-  readonly selectedAyahId = signal<number | null>(null);
 
   trackByAyahId(_index: number, ayah: Ayah): number {
     return ayah.id;
   }
 
   toggleSelection(ayah: Ayah): void {
-    const selectedAyah = this.selectedAyahId() === ayah.id ? null : ayah;
-    this.selectedAyahId.set(selectedAyah?.id ?? null);
+    const selectedAyah = this.selectedAyahId === ayah.id ? null : ayah;
     this.selectedAyahChange.emit(selectedAyah);
   }
 
@@ -51,7 +48,7 @@ export class AyahListComponent {
     this.actionRequested.emit({ action, ayah });
   }
 
-  isBookmarked(ayahId: number): boolean {
-    return this.bookmarkedAyahIds.includes(ayahId);
+  isBookmarked(ayahNumber: number): boolean {
+    return this.bookmarkedAyahNumbers.includes(ayahNumber);
   }
 }

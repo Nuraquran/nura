@@ -9,6 +9,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'bookmarks',
+    loadComponent: () =>
+      import('./features/bookmarks/bookmark.page').then(
+        (component) => component.BookmarkPage,
+      ),
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./layout/app-shell/app-shell.component').then(

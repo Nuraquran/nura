@@ -26,7 +26,8 @@
     <app-ayah-list
       [ayahs]="surah.ayahs"
       [preferences]="preferences()"
-      [bookmarkedAyahIds]="bookmarkedAyahIds()"
+      [selectedAyahId]="selectedAyah()?.id ?? null"
+      [bookmarkedAyahNumbers]="bookmarkedAyahNumbers()"
       (selectedAyahChange)="selectedAyah.set($event)"
       (actionRequested)="handleAyahAction($event)"
     />
