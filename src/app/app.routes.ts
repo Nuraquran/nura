@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'quran',
+    path: 'quran/:surahNumber',
     loadComponent: () =>
       import('./features/quran-reader/reader.page').then(
         (component) => component.ReaderPage,
@@ -25,6 +25,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/home/home.page').then(
             (component) => component.HomePage,
+          ),
+      },
+      {
+        path: 'quran',
+        loadComponent: () =>
+          import('./features/surah-list/surah-list.page').then(
+            (component) => component.SurahListPage,
           ),
       },
       {

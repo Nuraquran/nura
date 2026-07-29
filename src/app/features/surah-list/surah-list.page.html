@@ -1,0 +1,105 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Quran</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-page-container>
+    <div class="surah-page">
+      <section class="search" aria-labelledby="surah-search-title">
+        <h1 id="surah-search-title">Find a Surah</h1>
+        <app-search-input
+          label="Search Surahs by name or number"
+          placeholder="Search by name or number"
+          [debounce]="0"
+          [value]="searchQuery()"
+          (valueChange)="searchQuery.set($event)"
+        />
+      </section>
+
+      <section class="continue-reading" aria-labelledby="continue-title">
+        <p class="section-eyebrow" id="continue-title">Continue Reading</p>
+        <a
+          class="continue-reading__link"
+          [routerLink]="['/quran', lastRead.surahNumber]"
+          [attr.aria-label]="
+            'Continue ' +
+            lastRead.surahName +
+            ' from ayah ' +
+            lastRead.lastAyah
+          "
+        >
+          <span>
+            <strong>{{ lastRead.surahName }}</strong>
+            <small>Last read · Ayah {{ lastRead.lastAyah }}</small>
+          </span>
+          <ion-icon name="arrow-forward-outline" aria-hidden="true" />
+        </a>
+      </section>
+
+      <section class="surah-list" aria-labelledby="surah-list-title">
+        <header class="surah-list__header">
+          <h2 id="surah-list-title">All Surahs</h2>
+          @if (!isLoading()) {
+            <span aria-live="polite">{{ filteredSurahs().length }} surahs</span>
+          }
+        </header>
+
+        @if (isLoading()) {
+          <div class="skeleton-list" aria-label="Loading Surahs" aria-busy="true">
+            @for (row of skeletonRows; track row) {
+              <div class="skeleton-row">
+                <app-skeleton-loader width="2.5rem" height="2.5rem" [rounded]="true" />
+                <span class="skeleton-row__text">
+                  <app-skeleton-loader width="8rem" height="1rem" />
+                  <app-skeleton-loader width="6rem" height="0.75rem" />
+                </span>
+                <app-skeleton-loader width="3rem" height="1.25rem" />
+              </div>
+            }
+          </div>
+        } @else if (filteredSurahs().length) {
+          <ol>
+            @for (
+              surah of filteredSurahs();
+              track trackBySurahNumber($index, surah)
+            ) {
+              <li>
+                <a
+                  [routerLink]="['/quran', surah.number]"
+                  [attr.aria-label]="
+                    'Open Surah ' +
+                    surah.englishName +
+                    ', ' +
+                    surah.totalAyahs +
+                    ' ayahs, ' +
+                    surah.revelationType
+                  "
+                >
+                  <span class="surah-number" aria-hidden="true">
+                    {{ surah.number }}
+                  </span>
+                  <span class="surah-details">
+                    <span class="surah-names">
+                      <strong>{{ surah.englishName }}</strong>
+                      <span lang="ar" dir="rtl">{{ surah.arabicName }}</span>
+                    </span>
+                    <small>
+                      {{ surah.revelationType }} · {{ surah.totalAyahs }} ayahs
+                    </small>
+                  </span>
+                </a>
+              </li>
+            }
+          </ol>
+        } @else {
+          <app-empty-state
+            title="No Surahs Found"
+            message="Try another keyword."
+          />
+        }
+      </section>
+    </div>
+  </app-page-container>
+</ion-content>

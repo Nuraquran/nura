@@ -8,7 +8,7 @@
     @for (surah of surahs; track surah.number) {
       <li>
         <a
-          routerLink="/quran"
+          [routerLink]="['/quran', surah.number]"
           [attr.aria-label]="'Open Surah ' + surah.name"
         >
           <span class="surah__number" aria-hidden="true">

@@ -1,0 +1,228 @@
+:host {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+
+ion-header,
+ion-toolbar {
+  --background: var(--nura-color-background);
+  --border-width: 0;
+}
+
+ion-title {
+  padding-inline: var(--nura-space-4);
+  font-size: var(--nura-font-size-xl);
+  font-weight: var(--nura-font-weight-semibold);
+}
+
+ion-content {
+  --background: var(--nura-color-background);
+}
+
+.surah-page {
+  width: min(100%, 42rem);
+  margin-inline: auto;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  margin-bottom: var(--nura-space-3);
+  font-size: var(--nura-font-size-lg);
+  font-weight: var(--nura-font-weight-semibold);
+}
+
+.continue-reading {
+  margin-top: var(--nura-space-6);
+}
+
+.section-eyebrow {
+  margin-bottom: var(--nura-space-2);
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-xs);
+  font-weight: var(--nura-font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.continue-reading__link {
+  display: flex;
+  min-height: var(--nura-touch-target);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--nura-space-4);
+  padding: var(--nura-space-3) var(--nura-space-4);
+  color: var(--nura-color-text);
+  background: var(--nura-color-surface-subtle);
+  border-radius: var(--nura-radius-lg);
+  text-decoration: none;
+  transition:
+    background-color var(--nura-duration-fast) var(--nura-easing-standard),
+    transform var(--nura-duration-fast) var(--nura-easing-standard);
+}
+
+.continue-reading__link:active {
+  transform: scale(0.99);
+}
+
+.continue-reading__link span {
+  min-width: 0;
+}
+
+.continue-reading__link strong,
+.continue-reading__link small {
+  display: block;
+}
+
+.continue-reading__link strong {
+  font-size: var(--nura-font-size-md);
+  font-weight: var(--nura-font-weight-semibold);
+}
+
+.continue-reading__link small {
+  margin-top: var(--nura-space-1);
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-sm);
+}
+
+.continue-reading__link ion-icon {
+  flex: 0 0 auto;
+  color: var(--nura-color-primary);
+  font-size: var(--nura-icon-md);
+}
+
+.surah-list {
+  margin-top: var(--nura-space-8);
+}
+
+.surah-list__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--nura-space-3);
+  margin-bottom: var(--nura-space-2);
+}
+
+.surah-list__header h2 {
+  font-size: var(--nura-font-size-lg);
+  font-weight: var(--nura-font-weight-semibold);
+}
+
+.surah-list__header span {
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-xs);
+}
+
+ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+li {
+  border-bottom: 1px solid var(--nura-color-border);
+}
+
+li:last-child {
+  border-bottom: 0;
+}
+
+li a {
+  display: flex;
+  min-height: 4.5rem;
+  align-items: center;
+  gap: var(--nura-space-3);
+  padding-block: var(--nura-space-3);
+  color: var(--nura-color-text);
+  text-decoration: none;
+}
+
+.surah-number {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 2.5rem;
+  place-items: center;
+  color: var(--nura-color-primary);
+  background: color-mix(in srgb, var(--nura-color-primary) 9%, transparent);
+  border-radius: var(--nura-radius-full);
+  font-size: var(--nura-font-size-sm);
+  font-weight: var(--nura-font-weight-medium);
+}
+
+.surah-details {
+  min-width: 0;
+  flex: 1;
+}
+
+.surah-names {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--nura-space-3);
+}
+
+.surah-names strong {
+  overflow: hidden;
+  font-size: var(--nura-font-size-md);
+  font-weight: var(--nura-font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.surah-names [lang="ar"] {
+  flex: 0 0 auto;
+  font-family: var(--nura-font-family-arabic);
+  font-size: var(--nura-font-size-lg);
+}
+
+.surah-details small {
+  display: block;
+  margin-top: var(--nura-space-1);
+  color: var(--nura-color-text-muted);
+  font-size: var(--nura-font-size-xs);
+}
+
+.skeleton-row {
+  display: flex;
+  min-height: 4.5rem;
+  align-items: center;
+  gap: var(--nura-space-3);
+  border-bottom: 1px solid var(--nura-color-border);
+}
+
+.skeleton-row__text {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: var(--nura-space-2);
+}
+
+@media (hover: hover) {
+  .continue-reading__link:hover {
+    background: color-mix(
+      in srgb,
+      var(--nura-color-primary) 12%,
+      var(--nura-color-surface)
+    );
+  }
+
+  li a:hover .surah-names strong {
+    color: var(--nura-color-primary);
+  }
+}
+
+@media (max-width: 22rem) {
+  .surah-names {
+    gap: var(--nura-space-2);
+  }
+
+  .surah-names [lang="ar"] {
+    font-size: var(--nura-font-size-md);
+  }
+}

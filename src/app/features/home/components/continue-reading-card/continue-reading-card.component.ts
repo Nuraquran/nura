@@ -23,6 +23,6 @@ export class ContinueReadingCardComponent {
   @Input({ required: true }) reading!: ReadingProgress;
 
   continueReading(): void {
-    void this.router.navigate(['/quran']);
+    void this.router.navigate(['/quran', this.reading.surahNumber]);
   }
 }
