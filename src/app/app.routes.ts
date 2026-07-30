@@ -51,11 +51,8 @@ export const routes: Routes = [
       },
       {
         path: 'saved',
-        loadComponent: () =>
-          import('./features/placeholder/placeholder.page').then(
-            (component) => component.PlaceholderPage,
-          ),
-        data: { label: 'Saved' },
+        pathMatch: 'full',
+        redirectTo: '/bookmarks',
       },
       {
         path: 'more',
