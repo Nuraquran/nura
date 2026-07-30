@@ -35,15 +35,44 @@
 </ion-content>
 
 <ion-footer class="reader-footer ion-no-border">
+  @if (audio.active()) {
+    <app-audio-mini-player
+      [state]="audio.state()"
+      [reciterName]="audio.currentReciter().name"
+      [hasPrevious]="hasPreviousAudioAyah()"
+      [hasNext]="hasNextAudioAyah()"
+      (playPause)="toggleCurrentAudio()"
+      (previous)="playPreviousAyah()"
+      (next)="playNextAyah()"
+      (settings)="audioSettingsOpen.set(true)"
+    />
+  }
+
   <ion-toolbar>
     <nav class="reading-toolbar" aria-label="Reading controls">
       <button
         type="button"
-        aria-label="Play audio preview demo"
-        (click)="acknowledgeAudioPreview()"
+        [attr.aria-label]="
+          audioControlEngaged()
+            ? 'Pause mock audio'
+            : 'Play mock audio'
+        "
+        [attr.aria-pressed]="audioControlEngaged()"
+        (click)="toggleAudio()"
       >
-        <ion-icon name="play-outline" aria-hidden="true" />
-        <span>Play</span>
+        <ion-icon
+          [name]="
+            audioControlEngaged()
+              ? 'pause-outline'
+              : 'play-outline'
+          "
+          aria-hidden="true"
+        />
+        <span>
+          {{
+            audioControlEngaged() ? 'Pause' : 'Play'
+          }}
+        </span>
       </button>
 
       <button
@@ -91,6 +120,13 @@
   [preferences]="preferences()"
   (openChange)="settingsOpen.set($event)"
   (preferencesChange)="updatePreferences($event)"
+/>
+
+<app-reciter-settings
+  [open]="audioSettingsOpen()"
+  [selectedReciterId]="audio.state().reciterId"
+  (openChange)="audioSettingsOpen.set($event)"
+  (reciterChange)="audio.setReciter($event)"
 />
 
 <ion-toast

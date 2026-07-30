@@ -1,0 +1,24 @@
+<app-bottom-sheet
+  title="Choose Reciter"
+  [open]="open"
+  [initialBreakpoint]="0.5"
+  [breakpoints]="sheetBreakpoints"
+  (openChange)="openChange.emit($event)"
+>
+  <div class="reciter-list" role="radiogroup" aria-label="Reciters">
+    @for (reciter of reciters; track reciter.id) {
+      <button
+        type="button"
+        role="radio"
+        [attr.aria-checked]="reciter.id === selectedReciterId"
+        [attr.aria-label]="'Use reciter ' + reciter.name"
+        (click)="selectReciter(reciter.id)"
+      >
+        <span>{{ reciter.name }}</span>
+        @if (reciter.id === selectedReciterId) {
+          <ion-icon name="checkmark-outline" aria-hidden="true" />
+        }
+      </button>
+    }
+  </div>
+</app-bottom-sheet>

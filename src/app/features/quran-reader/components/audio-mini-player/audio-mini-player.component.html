@@ -1,0 +1,68 @@
+<section class="mini-player" aria-label="Mock audio player">
+  <div class="mini-player__summary">
+    <span>
+      <strong>{{ reciterName }}</strong>
+      <small>
+        Ayah {{ state.ayahNumber }} ·
+        {{ state.loading ? 'Preparing mock audio' : 'Mock audio preview' }}
+      </small>
+    </span>
+
+    <button
+      type="button"
+      aria-label="Choose reciter"
+      (click)="settings.emit()"
+    >
+      <ion-icon name="options-outline" aria-hidden="true" />
+    </button>
+  </div>
+
+  <progress
+    [value]="state.progress"
+    [max]="state.duration || 1"
+    [attr.aria-label]="
+      'Audio progress ' +
+      formatTime(state.progress) +
+      ' of ' +
+      formatTime(state.duration)
+    "
+  ></progress>
+
+  <div class="mini-player__controls">
+    <span class="mini-player__time" aria-hidden="true">
+      {{ formatTime(state.progress) }} / {{ formatTime(state.duration) }}
+    </span>
+
+    <span class="mini-player__buttons">
+      <button
+        type="button"
+        aria-label="Previous ayah"
+        [disabled]="!hasPrevious"
+        (click)="previous.emit()"
+      >
+        <ion-icon name="chevron-back-outline" aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        [attr.aria-label]="
+          state.playing || state.loading ? 'Pause mock audio' : 'Play mock audio'
+        "
+        [attr.aria-pressed]="state.playing"
+        (click)="playPause.emit()"
+      >
+        <ion-icon
+          [name]="state.playing ? 'pause-outline' : 'play-outline'"
+          aria-hidden="true"
+        />
+      </button>
+      <button
+        type="button"
+        aria-label="Next ayah"
+        [disabled]="!hasNext"
+        (click)="next.emit()"
+      >
+        <ion-icon name="chevron-forward-outline" aria-hidden="true" />
+      </button>
+    </span>
+  </div>
+</section>

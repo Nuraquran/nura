@@ -2,7 +2,7 @@ import { HomeViewModel } from './home.models';
 
 export const HOME_MOCK_DATA: HomeViewModel = {
   user: {
-    name: 'Amina',
+    name: 'Nur Shaheera',
     initials: 'AM',
   },
   prayer: {

@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   afterNextRender,
   computed,
   inject,
@@ -25,14 +26,18 @@ import {
   bookmark,
   bookmarkOutline,
   optionsOutline,
+  pauseOutline,
   playOutline,
   shareSocialOutline,
 } from 'ionicons/icons';
 
+import { AudioService } from '../../core/audio/audio.service';
 import { BookmarkService } from '../../core/bookmarks/bookmark.service';
 import { ThemeService } from '../../core/theme/theme.service';
+import { AudioMiniPlayerComponent } from './components/audio-mini-player/audio-mini-player.component';
 import { AyahListComponent } from './components/ayah-list/ayah-list.component';
 import { ReadingSettingsComponent } from './components/reading-settings/reading-settings.component';
+import { ReciterSettingsComponent } from './components/reciter-settings/reciter-settings.component';
 import { READER_MOCK_DATA } from './reader.mock-data';
 import {
   Ayah,
@@ -55,8 +60,10 @@ import {
     IonTitle,
     IonContent,
     IonFooter,
+    AudioMiniPlayerComponent,
     AyahListComponent,
     ReadingSettingsComponent,
+    ReciterSettingsComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -65,9 +72,12 @@ export class ReaderPage {
   private readonly bookmarkService = inject(BookmarkService);
   private readonly route = inject(ActivatedRoute);
   private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
+  readonly audio = inject(AudioService);
 
   readonly surah = READER_MOCK_DATA;
   readonly settingsOpen = signal(false);
+  readonly audioSettingsOpen = signal(false);
   readonly selectedAyah = signal<Ayah | null>(this.getInitialAyah());
   readonly toastMessage = signal('');
   readonly toastOpen = signal(false);
@@ -92,6 +102,37 @@ export class ReaderPage {
       .filter((bookmark) => bookmark.surahNumber === this.surah.number)
       .map((bookmark) => bookmark.ayahNumber),
   );
+  readonly hasPreviousAudioAyah = computed(() => {
+    const firstAyah = this.surah.ayahs[0];
+    return firstAyah
+      ? this.audio.state().ayahNumber > firstAyah.number
+      : false;
+  });
+  readonly hasNextAudioAyah = computed(() => {
+    const lastAyah = this.surah.ayahs[this.surah.ayahs.length - 1];
+    return lastAyah
+      ? this.audio.state().ayahNumber < lastAyah.number
+      : false;
+  });
+  readonly audioControlAyah = computed(
+    () =>
+      this.selectedAyah() ??
+      this.surah.ayahs.find(
+        (ayah) => ayah.number === this.audio.state().ayahNumber,
+      ) ??
+      this.surah.ayahs[0] ??
+      null,
+  );
+  readonly audioControlEngaged = computed(() => {
+    const ayah = this.audioControlAyah();
+    const state = this.audio.state();
+    return Boolean(
+      ayah &&
+        state.surahNumber === this.surah.number &&
+        state.ayahNumber === ayah.number &&
+        (state.playing || state.loading),
+    );
+  });
 
   constructor() {
     addIcons({
@@ -99,6 +140,7 @@ export class ReaderPage {
       bookmark,
       bookmarkOutline,
       optionsOutline,
+      pauseOutline,
       playOutline,
       shareSocialOutline,
     });
@@ -111,13 +153,47 @@ export class ReaderPage {
           ?.scrollIntoView({ block: 'center' });
       }
     });
+
+    this.destroyRef.onDestroy(() => {
+      this.audio.stop();
+    });
   }
 
-  acknowledgeAudioPreview(ayah: Ayah | null = this.selectedAyah()): void {
-    const context = ayah ? ` for ayah ${ayah.number}` : '';
-    this.showToast(
-      `Audio preview${context} is not available in this mock Reader V1.`,
-    );
+  toggleAudio(ayah: Ayah | null = this.selectedAyah()): void {
+    const targetAyah = ayah ?? this.audioControlAyah();
+    if (!targetAyah) {
+      return;
+    }
+
+    this.selectedAyah.set(targetAyah);
+    this.audio.toggle(this.surah.number, targetAyah.number);
+  }
+
+  toggleCurrentAudio(): void {
+    const state = this.audio.state();
+    if (this.audio.active()) {
+      this.audio.toggle(state.surahNumber, state.ayahNumber);
+    }
+  }
+
+  playNextAyah(): void {
+    const lastAyah = this.surah.ayahs[this.surah.ayahs.length - 1];
+    if (!lastAyah) {
+      return;
+    }
+
+    this.audio.next(lastAyah.number);
+    this.selectAudioAyah();
+  }
+
+  playPreviousAyah(): void {
+    const firstAyah = this.surah.ayahs[0];
+    if (!firstAyah) {
+      return;
+    }
+
+    this.audio.previous(firstAyah.number);
+    this.selectAudioAyah();
   }
 
   toggleSelectedAyahBookmark(ayah: Ayah | null = this.selectedAyah()): void {
@@ -154,7 +230,7 @@ export class ReaderPage {
 
   handleAyahAction(request: AyahActionRequest): void {
     if (request.action === 'play') {
-      this.acknowledgeAudioPreview(request.ayah);
+      this.toggleAudio(request.ayah);
       return;
     }
 
@@ -187,6 +263,19 @@ export class ReaderPage {
   private showToast(message: string): void {
     this.toastMessage.set(message);
     this.toastOpen.set(true);
+  }
+
+  private selectAudioAyah(): void {
+    const ayah = this.surah.ayahs.find(
+      (candidate) => candidate.number === this.audio.state().ayahNumber,
+    );
+
+    if (ayah) {
+      this.selectedAyah.set(ayah);
+      this.document
+        .getElementById(`ayah-${ayah.number}`)
+        ?.scrollIntoView({ block: 'center' });
+    }
   }
 
   private getInitialAyah(): Ayah | null {
