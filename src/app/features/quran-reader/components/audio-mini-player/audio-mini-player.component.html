@@ -1,10 +1,10 @@
-<section class="mini-player" aria-label="Mock audio player">
+<section class="mini-player" aria-label="Audio player">
   <div class="mini-player__summary">
     <span>
       <strong>{{ reciterName }}</strong>
       <small>
         Ayah {{ state.ayahNumber }} ·
-        {{ state.loading ? 'Preparing mock audio' : 'Mock audio playback' }}
+        {{ state.loading ? 'Preparing audio' : 'Audio playback' }}
       </small>
     </span>
 
@@ -45,7 +45,7 @@
       <button
         type="button"
         [attr.aria-label]="
-          state.playing || state.loading ? 'Pause mock audio' : 'Play mock audio'
+          state.playing || state.loading ? 'Pause audio' : 'Play audio'
         "
         [attr.aria-pressed]="state.playing"
         (click)="playPause.emit()"

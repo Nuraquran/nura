@@ -55,8 +55,8 @@
         type="button"
         [attr.aria-label]="
           audioControlEngaged()
-            ? 'Pause mock audio'
-            : 'Play mock audio'
+            ? 'Pause audio'
+            : 'Play audio'
         "
         [attr.aria-pressed]="audioControlEngaged()"
         (click)="toggleAudio()"

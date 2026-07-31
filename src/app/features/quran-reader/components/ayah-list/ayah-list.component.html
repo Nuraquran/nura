@@ -51,8 +51,8 @@
             type="button"
             [attr.aria-label]="
               engagedAudioAyahNumber === ayah.number
-                ? 'Pause mock audio for ayah ' + ayah.number
-                : 'Play mock audio for ayah ' + ayah.number
+                ? 'Pause audio for ayah ' + ayah.number
+                : 'Play audio for ayah ' + ayah.number
             "
             (click)="requestAction('play', ayah)"
           >
