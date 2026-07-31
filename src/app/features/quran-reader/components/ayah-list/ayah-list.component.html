@@ -49,10 +49,14 @@
         <div class="ayah__actions" aria-label="Selected ayah actions">
           <button
             type="button"
-            [attr.aria-label]="'Play or pause mock audio for ayah ' + ayah.number"
+            [attr.aria-label]="
+              engagedAudioAyahNumber === ayah.number
+                ? 'Pause mock audio for ayah ' + ayah.number
+                : 'Play mock audio for ayah ' + ayah.number
+            "
             (click)="requestAction('play', ayah)"
           >
-            Audio preview
+            {{ engagedAudioAyahNumber === ayah.number ? 'Pause' : 'Play' }}
           </button>
           <button
             type="button"

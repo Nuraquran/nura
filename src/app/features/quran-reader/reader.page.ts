@@ -133,6 +133,13 @@ export class ReaderPage {
         (state.playing || state.loading),
     );
   });
+  readonly engagedAudioAyahNumber = computed(() => {
+    const state = this.audio.state();
+    return state.surahNumber === this.surah.number &&
+      (state.playing || state.loading)
+      ? state.ayahNumber
+      : null;
+  });
 
   constructor() {
     addIcons({

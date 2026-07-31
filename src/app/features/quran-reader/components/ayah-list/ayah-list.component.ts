@@ -24,6 +24,7 @@ export class AyahListComponent {
   @Input({ required: true }) preferences!: ReadingPreferences;
   @Input() selectedAyahId: number | null = null;
   @Input() bookmarkedAyahNumbers: readonly number[] = [];
+  @Input() engagedAudioAyahNumber: number | null = null;
   @Output() readonly selectedAyahChange = new EventEmitter<Ayah | null>();
   @Output() readonly actionRequested =
     new EventEmitter<AyahActionRequest>();

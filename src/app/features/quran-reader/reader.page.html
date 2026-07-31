@@ -28,6 +28,7 @@
       [preferences]="preferences()"
       [selectedAyahId]="selectedAyah()?.id ?? null"
       [bookmarkedAyahNumbers]="bookmarkedAyahNumbers()"
+      [engagedAudioAyahNumber]="engagedAudioAyahNumber()"
       (selectedAyahChange)="selectedAyah.set($event)"
       (actionRequested)="handleAyahAction($event)"
     />
